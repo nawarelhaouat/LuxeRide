@@ -2,18 +2,14 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class AdminSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        DB::table('admin')->insert([
+        $admins = [
             [
                 'id_admin'  => 'ADM001',
                 'nom'       => 'El Oukili',
@@ -22,6 +18,19 @@ class AdminSeeder extends Seeder
                 'telephone' => '0600000001',
                 'code'      => '1234'
             ]
-        ]);
+        ];
+
+        foreach ($admins as $admin) {
+            DB::table('admin')->updateOrInsert(
+                ['id_admin' => $admin['id_admin']],
+                [
+                    'nom'       => $admin['nom'],
+                    'prenom'    => $admin['prenom'],
+                    'email'     => $admin['email'],
+                    'telephone' => $admin['telephone'],
+                    'code'      => $admin['code'],
+                ]
+            );
+        }
     }
 }
