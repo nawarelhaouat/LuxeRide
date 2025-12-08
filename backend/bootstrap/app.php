@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Foundation\Application;
-use Illuminate\Foundation\Configuration\Exceptions;
-use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\FoundationConfiguration\Exceptions;
+use Illuminate\FoundationConfiguration\Middleware;
+use App\Http\Middleware\AdminMiddleware;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -11,11 +12,13 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware) {
-        // On applique HandleCors AVANT tout
-        $middleware->prepend(\Illuminate\Http\Middleware\HandleCors::class);
-        file_put_contents(__DIR__ . '/cors_test.txt', "CORS middleware executed\n", FILE_APPEND);
+    ->withMiddleware(function (Middleware $middleware): void {
 
+        $middleware->prepend(\Illuminate\Http\Middleware\HandleCors::class);
+
+        $middleware->alias([
+            'admin' => AdminMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

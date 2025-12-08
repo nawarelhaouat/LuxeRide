@@ -12,12 +12,19 @@ class AdminFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_admin' => $this->faker->randomNumber(3),
+            // ID string unique
+            'id_admin' => 'ADM' . $this->faker->unique()->numberBetween(1, 9999),
+
             'nom' => $this->faker->lastName(),
             'prenom' => $this->faker->firstName(),
-            'email' => $this->faker->safeEmail(),
+
+            // Email unique
+            'email' => $this->faker->unique()->safeEmail(),
+
             'telephone' => $this->faker->phoneNumber(),
-            'code' => '1234', 
+
+            // Code sécurisé aléatoire à 4 chiffres
+            'code' => $this->faker->numerify('####'),
         ];
     }
 }
