@@ -77,7 +77,7 @@ class VoitureController extends Controller
             'date_ajout' => now(),
         ];
 
-        $voiture = voiture::create($data);
+        $voiture = Voiture::create($data);
 
         $response = [
             'id' => $voiture->id_voiture,

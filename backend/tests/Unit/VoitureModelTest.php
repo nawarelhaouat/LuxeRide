@@ -38,7 +38,7 @@ class VoitureModelTest extends TestCase
             'marque' => 'Toyota',
             'modele' => 'Corolla',
             'immatriculation' => 'ABC123',
-            'prix_par_jour' => -50, // prix négatif
+            'prix_par_jour' => -50,
             'image' => 'img.jpg',
             'statut' => 'disponible',
             'date_ajout' => now(),
