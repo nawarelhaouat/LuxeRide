@@ -7,9 +7,10 @@ Route::get('/test', function () {
     return response()->json(['message' => 'API working']);
 });
 
+
 Route::prefix('admin')->group(function () {
+    
     Route::post('/login', [AdminAuthController::class, 'login']);
+
 });
 
-
-dump("here");
