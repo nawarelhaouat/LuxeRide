@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Foundation\Application;
-use Illuminate\FoundationConfiguration\Exceptions;
-use Illuminate\FoundationConfiguration\Middleware;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\AdminMiddleware;
 
 return Application::configure(basePath: dirname(__DIR__))

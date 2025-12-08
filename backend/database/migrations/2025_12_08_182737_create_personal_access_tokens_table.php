@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('personal_access_tokens', function (Blueprint $table) {
             $table->id();
-            $table->morphs('tokenable');
+
+            // IMPORTANT : tokenable_id et tokenable_type doivent être STRING vu que Admin PK = 'ADM001'
+            $table->string('tokenable_id');
+            $table->string('tokenable_type');
+
             $table->text('name');
             $table->string('token', 64)->unique();
             $table->text('abilities')->nullable();
