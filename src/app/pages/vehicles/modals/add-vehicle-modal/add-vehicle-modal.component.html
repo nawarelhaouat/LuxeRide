@@ -1,0 +1,38 @@
+<div class="modal-backdrop">
+  <div class="modal-box">
+
+    <h2>Ajouter un véhicule</h2>
+
+    <form (submit)="addVehicle(); $event.preventDefault()">
+
+      <label>Marque</label>
+      <input type="text" [(ngModel)]="vehicle.brand" name="brand">
+
+      <label>Modèle</label>
+      <input type="text" [(ngModel)]="vehicle.model" name="model">
+
+      <label>Immatricule</label>
+      <input type="text" [(ngModel)]="vehicle.plateNumber" name="plate">
+
+      <label>Prix / jour (€)</label>
+      <input type="number" [(ngModel)]="vehicle.pricePerDay" name="price">
+
+      <label>Statut</label>
+      <select [(ngModel)]="vehicle.status" name="status">
+        <option>Disponible</option>
+        <option>Loué</option>
+        <option>Maintenance</option>
+      </select>
+
+      <label>Image URL</label>
+      <input type="text" [(ngModel)]="vehicle.imageUrl" name="image">
+
+      <div class="actions">
+        <button type="button" class="cancel" (click)="close.emit()">Annuler</button>
+        <button type="submit" class="save">Ajouter</button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

@@ -1,0 +1,111 @@
+.container {
+  padding: 20px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1e3c34;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.filters button {
+  padding: 8px 18px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.filters button.active {
+  background: #0a4d3c;
+  color: white;
+}
+.add-btn, 
+.add-btn * {
+  color: #0a4d3c !important;  /* 🎉 texte visible */
+}
+.add-btn {
+  background: #0a4d3c !important;   /* même couleur que bouton actif */
+  color: white !important;           /* texte blanc */
+  padding: 10px 22px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* espace entre + et le texte */
+  transition: 0.2s ease;
+}
+
+.add-btn:hover {
+  background: #063528 !important;   /* version plus foncée au hover */
+}
+
+.add-btn .plus {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+
+
+.vehicle-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.vehicle-table thead {
+  background: #f3f0eb;
+}
+
+.vehicle-table th,
+.vehicle-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.vehicle-info {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.vehicle-info img {
+  width: 60px;
+  height: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.edit-btn {
+  color: #0a4d3c;
+}
+
+.delete-btn {
+  color: #d9534f;
+}

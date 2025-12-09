@@ -1,0 +1,41 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-box {
+  background: #fff;
+  width: 350px;
+  padding: 25px;
+  border-radius: 14px;
+  text-align: center;
+}
+
+h2 {
+  color: #b10000;
+  margin-bottom: 10px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.cancel {
+  background: #ddd;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.delete {
+  background: #c0392b;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+}

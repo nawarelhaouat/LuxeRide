@@ -1,0 +1,16 @@
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px;
+  background: white;
+  border-bottom: 1px solid #eee;
+}
+
+.menu-btn {
+  font-size: 26px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+

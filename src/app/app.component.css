@@ -1,0 +1,15 @@
+.layout {
+  display: flex;
+}
+
+.content {
+  flex: 1;
+  background: #fafafa;
+  min-height: 100vh;
+}
+.content-area {
+  flex: 1;
+}
+.page-wrapper {
+  padding: 30px;
+}
