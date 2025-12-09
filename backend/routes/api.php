@@ -10,12 +10,7 @@ Route::prefix('voiture')->group(function () {
     Route::get('/', [VoitureController::class, 'index']);      // GET /api/voiture
     Route::get('{id}', [VoitureController::class, 'show']);    // GET /api/voiture/{id}
 
-//Routes Admin
-    Route::middleware('admin')->group(function () {
-        Route::post('/', [VoitureController::class, 'store']);       // POST /api/voiture
-        Route::put('{id}', [VoitureController::class, 'update']);    // PUT /api/voiture/{id}
-        Route::delete('{id}', [VoitureController::class, 'destroy']); // DELETE /api/voiture/{id}
-    });
+
 });
 
 Route::get('/test', function () {
@@ -25,7 +20,16 @@ Route::get('/test', function () {
 
 Route::prefix('admin')->group(function () {
     
-    Route::post('/login', [AdminAuthController::class, 'login']);
+    Route::post('/login', [AdminAuthController::class, 'login']); // POST /api/admin/login
+    
+    Route::middleware('admin')->group(function () {
+      //Routes voitures
+      Route::prefix('voiture')->group(function () {
+          Route::post('/', [VoitureController::class, 'store']);       // POST /api/admin/voiture
+          Route::put('{id}', [VoitureController::class, 'update']);    // PUT /api/admin/voiture/{id}
+          Route::delete('{id}', [VoitureController::class, 'destroy']); // DELETE /api/admin/voiture/{id}
+      });
+    });
 
 });
 
