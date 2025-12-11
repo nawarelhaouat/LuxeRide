@@ -21,7 +21,8 @@ Route::get('/test', function () {
 Route::prefix('admin')->group(function () {
     
     Route::post('/login', [AdminAuthController::class, 'login']); // POST /api/admin/login
-    
+    Route::post('/recover-password', [AdminAuthController::class, 'ForgotPassword']); // POST /api/admin/ForgotPassword
+
     Route::middleware('admin')->group(function () {
       //Routes voitures
       Route::prefix('voiture')->group(function () {

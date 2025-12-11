@@ -1,0 +1,40 @@
+.custom-navbar {
+    background-color: #d6cabc;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    box-shadow: none !important;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-bottom: 0px; 
+}
+
+/* Conteneur de la marque - Sert de point de référence */
+.navbar-brand {
+    display: flex;
+    position: relative; 
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    
+    height: 68px; 
+    align-items: center; 
+}
+
+/* Logo */
+.logo {
+    height: 60px;
+    width: auto;
+    margin-top: 0;
+    position: absolute;
+    top: 0px; 
+    left: 0; 
+}
+
+.nav-link {
+    font-size: 16px;
+    margin-left: 15px;
+    color: #91855a !important;
+    font-weight: bold;
+}

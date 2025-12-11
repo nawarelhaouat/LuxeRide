@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\Admin;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Contact;
 
 class AdminAuthTest extends TestCase
 {
@@ -13,17 +15,14 @@ class AdminAuthTest extends TestCase
     /** @test */
     public function admin_can_login_with_correct_code()
     {
-        // Arrange: créer un admin factice
         $admin = Admin::factory()->create([
             'code' => '1234',
         ]);
 
-        // Act: envoyer la requête
         $response = $this->postJson('/api/admin/login', [
             'code' => '1234',
         ]);
 
-        // Assert: vérifier la réponse
         $response->assertStatus(200)
                  ->assertJsonStructure([
                      'message',
@@ -31,7 +30,6 @@ class AdminAuthTest extends TestCase
                      'token'
                  ]);
 
-        // Vérifier que le token est enregistré en base
         $this->assertDatabaseHas('personal_access_tokens', [
            'name' => 'admin_token',
         ]);
@@ -41,7 +39,7 @@ class AdminAuthTest extends TestCase
     /** @test */
     public function login_fails_with_wrong_code()
     {
-        // Aucun admin ne correspond à ce code
+
         $response = $this->postJson('/api/admin/login', [
             'code' => '0000',
         ]);
@@ -55,25 +53,58 @@ class AdminAuthTest extends TestCase
     /** @test */
     public function login_fails_when_code_is_missing()
     {
-        // Pas de code → échec validation
+
         $response = $this->postJson('/api/admin/login', []);
 
-        $response->assertStatus(422) // Laravel renvoie 422 validation error
+        $response->assertStatus(422) 
                  ->assertJsonValidationErrors(['code']);
     }
 
     /** @test */
     public function token_is_correctly_returned_in_response()
     {
-        // Arrange
         $admin = Admin::factory()->create(['code' => '9999']);
 
-        // Act
+
         $response = $this->postJson('/api/admin/login', ['code' => '9999']);
 
-        // Assert: vérifier le token
         $response->assertStatus(200);
         $this->assertTrue(isset($response['token']));
         $this->assertNotEmpty($response['token']);
     }
+    /** @test */
+    public function retourne_404_si_email_n_existe_pas()
+    {
+        $response = $this->postJson('/api/admin/recover-password', [
+            'email' => 'inconnu@example.com'
+        ]);
+
+        $response->assertStatus(404)
+                 ->assertJson([
+                     'message' => 'Email non trouvé'
+                 ]);
+    }
+
+    /** @test */
+  public function envoie_email_si_email_existe()
+{
+    Mail::fake();
+
+    $admin = Admin::factory()->create([
+        'email' => 'test@example.com',
+        'code'  => '1234'
+    ]);
+
+    $response = $this->postJson('/api/admin/recover-password', [
+        'email' => 'test@example.com'
+    ]);
+
+   Mail::assertSent(Contact::class);
+
+
+    $response->assertStatus(200)
+             ->assertJson([
+                 'message' => 'Votre mot de passe a été envoyé par email.'
+             ]);
+}
 }
