@@ -29,6 +29,9 @@ Route::prefix('admin')->group(function () {
           Route::put('{id}', [VoitureController::class, 'update']);    // PUT /api/admin/voiture/{id}
           Route::delete('{id}', [VoitureController::class, 'destroy']); // DELETE /api/admin/voiture/{id}
       });
+
+      Route::resource('Reservation', ReservationController::class);
+
     });
 
 });
