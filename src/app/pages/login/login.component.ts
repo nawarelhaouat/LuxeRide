@@ -51,25 +51,32 @@ export class LoginComponent {
   }
 
   submit(form: NgForm): void {
-    this.errorMessage = null;
-    this.loading = true;
+  this.errorMessage = null;
+  this.loading = true;
 
-    const code = form.value.code;
+  const code = form.value.code;
 
-    this.loginService.login(code).subscribe({
-      next: () => {
-        this.loading = false;
-        this.router.navigate(['/dashboard']);
-      },
-      error: (error: any) => {
-        this.loading = false;
-        this.errorMessage =
-          error.status === 401
-            ? 'Code administrateur invalide. Veuillez réessayer.'
-            : 'Erreur serveur. Veuillez réessayer plus tard.';
+  this.loginService.login(code).subscribe({
+    next: (response: any) => {  
+      this.loading = false;
+
+      if (response.token) {
+        localStorage.setItem('authToken', response.token);
       }
-    });
-  }
+     
+
+      this.router.navigate(['/dashboard']);
+    },
+    error: (error: any) => {
+      this.loading = false;
+      this.errorMessage =
+        error.status === 401
+          ? 'Code administrateur invalide. Veuillez réessayer.'
+          : 'Erreur serveur. Veuillez réessayer plus tard.';
+    }
+  });
+}
+
 
   sendRecoveryEmail(): void {
   if (!this.forgotEmail || !this.isValidEmail(this.forgotEmail)) {

@@ -1,0 +1,95 @@
+
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+      <!-- Cartes de statistiques -->
+      <div class="stats-grid">
+        
+        <!-- Carte Réservations -->
+        <mat-card class="stat-card">
+          <div class="stat-icon-wrapper reservations">
+            <mat-icon>event_note</mat-icon>
+          </div>
+          <div class="stat-trend positive">
+            <mat-icon>trending_up</mat-icon>
+            <span>+12.5%</span>
+          </div>
+          <div class="stat-label">Réservations</div>
+          <div class="stat-value">284</div>
+        </mat-card>
+
+        <!-- Carte Revenus -->
+        <mat-card class="stat-card">
+          <div class="stat-icon-wrapper revenus">
+            <mat-icon>attach_money</mat-icon>
+          </div>
+          <div class="stat-trend positive">
+            <mat-icon>trending_up</mat-icon>
+            <span>+8.2%</span>
+          </div>
+          <div class="stat-label">Revenus</div>
+          <div class="stat-value">€28,450</div>
+        </mat-card>
+
+        <!-- Carte Taux d'Utilisation -->
+        <mat-card class="stat-card">
+          <div class="stat-icon-wrapper utilisation">
+            <mat-icon>directions_car</mat-icon>
+          </div>
+          <div class="stat-trend positive">
+            <mat-icon>trending_up</mat-icon>
+            <span>+5.1%</span>
+          </div>
+          <div class="stat-label">Taux d'Utilisation</div>
+          <div class="stat-value">87%</div>
+        </mat-card>
+
+        <!-- Carte Maintenance -->
+        <mat-card class="stat-card">
+          <div class="stat-icon-wrapper maintenance">
+            <mat-icon>build</mat-icon>
+          </div>
+          <div class="stat-trend negative">
+            <mat-icon>trending_down</mat-icon>
+            <span>-2.3%</span>
+          </div>
+          <div class="stat-label">Maintenance</div>
+          <div class="stat-value">12 véhicules</div>
+        </mat-card>
+
+      </div>
+
+      <div class="charts-grid">
+
+    <mat-card class="chart-card">
+      <div class="chart-header">
+        <h3>Évolution des Réservations</h3>
+      </div>
+      <div class="chart-content">
+        <canvas id="reservationsChart" width="400" height="250"></canvas>
+      </div>
+    </mat-card>
+
+    <mat-card class="chart-card">
+      <div class="chart-header">
+        <h3>Taux d'Utilisation par Véhicule</h3>
+      </div>
+      <div class="chart-content">
+        <canvas id="utilisationChart" width="400" height="250"></canvas>
+      </div>
+    </mat-card>
+
+  </div>
+
+  <div class="charts-grid-full">
+    <mat-card class="chart-card">
+      <div class="chart-header">
+        <h3>Revenus Mensuels</h3>
+      </div>
+      <div class="chart-content">
+        <canvas id="revenusChart" width="800" height="250"></canvas>
+      </div>
+    </mat-card>
+  </div>
+
+</div>
