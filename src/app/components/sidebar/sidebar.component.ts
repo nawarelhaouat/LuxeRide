@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
@@ -10,11 +10,10 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
 
-interface Notification {
-  text: string;
-  time: string;
-  read: boolean;
-}
+import { NotificationService } from '../../services/notification.service';
+import { NotificationDto } from '../../models/notification.model';
+
+import { AuthService } from '../../services/auth.service'; // ✅ AJOUT
 
 @Component({
   selector: 'app-sidebar',
@@ -35,38 +34,67 @@ interface Notification {
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
 
-  notifications: Notification[] = [
-    { text: 'Nouvelle réservation créée pour Audi A4', time: "À l'instant", read: false },
-    { text: 'Nouvelle réservation créée pour Mercedes C-Class', time: "À l'instant", read: false },
-    { text: 'Nouvelle réservation créée pour Mercedes C-Class', time: "À l'instant", read: false },
-    { text: 'Nouvelle réservation créée pour Audi A4', time: "À l'instant", read: false },
-    { text: 'Nouvelle réservation créée pour Mercedes', time: "À l'instant", read: false }
-  ];
+  notifications: NotificationDto[] = [];
 
-  /**
-   * ✅ Marquer une notification comme lue (au clic)
-   * La notification disparaît de la liste
-   */
+  constructor(
+    private notifService: NotificationService,
+    private authService: AuthService // ✅ AJOUT
+  ) {}
+
+  ngOnInit(): void {
+    this.loadNotifications();
+  }
+
+  private loadNotifications(): void {
+    this.notifService.getNotifications().subscribe({
+      next: (data) => this.notifications = data,
+      error: (err) => console.error('Erreur chargement notifications', err)
+    });
+  }
+
+  // ✅ Afficher seulement les non lues
+  get unreadNotifications(): NotificationDto[] {
+    return this.notifications.filter(n => !n.read);
+  }
+
+  // ✅ Badge
+  get unreadCount(): number {
+    return this.unreadNotifications.length;
+  }
+
   markAsRead(index: number, event: MouseEvent): void {
     event.stopPropagation();
-    this.notifications.splice(index, 1);
+
+    // ⚠️ index est basé sur unreadNotifications, donc on récupère d'abord la notif
+    const notif = this.unreadNotifications[index];
+    if (!notif) return;
+
+    this.notifService.markAsRead(notif.id).subscribe({
+      next: () => {
+        // ✅ mettre à jour la liste locale (sans supprimer tout)
+        const target = this.notifications.find(n => n.id === notif.id);
+        if (target) target.read = true;
+      },
+      error: (err) => console.error('Erreur markAsRead', err)
+    });
   }
 
-  /**
-   * ✅ Marquer toutes les notifications comme lues
-   * Vide complètement la liste
-   */
   markAllAsRead(event: MouseEvent): void {
     event.stopPropagation();
-    this.notifications = [];
+
+    this.notifService.markAllAsRead().subscribe({
+      next: () => {
+        // ✅ mettre tout en read=true
+        this.notifications = this.notifications.map(n => ({ ...n, read: true }));
+      },
+      error: (err) => console.error('Erreur markAllAsRead', err)
+    });
   }
 
-  /**
-   * ✅ Nombre de notifications non lues (pour le badge)
-   */
-  get unreadCount(): number {
-    return this.notifications.filter(n => !n.read).length;
+  // ✅ LOGOUT
+  logout(): void {
+    this.authService.logout();
   }
 }

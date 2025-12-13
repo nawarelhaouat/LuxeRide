@@ -44,7 +44,8 @@
     </mat-nav-list>
 
     <div class="logout-container">
-      <button mat-button class="logout-button">
+      <!-- ✅ AJOUT CLICK -->
+      <button mat-button class="logout-button" (click)="logout()">
         <mat-icon>logout</mat-icon>
         <span>Déconnexion</span>
       </button>
@@ -101,7 +102,7 @@
 
         <div class="notif-list">
 
-          <div class="notif-item" *ngFor="let n of notifications; let i = index">
+          <div class="notif-item" *ngFor="let n of unreadNotifications; let i = index">
             <div class="notif-dot"></div>
 
             <div>
@@ -109,17 +110,12 @@
               <div class="notif-time">{{ n.time }}</div>
             </div>
 
-            
-            <button
-            mat-button
-            
-             (click)="markAsRead(i, $event)"
-          >
-            <mat-icon>done_all</mat-icon>
-          </button>
+            <button mat-button (click)="markAsRead(i, $event)">
+              <mat-icon>done_all</mat-icon>
+            </button>
           </div>
 
-          <div class="empty-notif" *ngIf="notifications.length === 0">
+          <div class="empty-notif" *ngIf="unreadNotifications.length === 0">
             Aucune notification
           </div>
 
