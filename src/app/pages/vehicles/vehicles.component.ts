@@ -110,10 +110,12 @@ vehicleToDelete: Vehicle | null = null;
   // ---------------------------
   // SUPPRIMER
   // ---------------------------
-  openDeleteModal(v: Vehicle) {
-    this.vehicleToDelete = v;
-    this.showDeleteModal = true;
-  }
+ openDeleteModal(v: Vehicle) {
+  console.log('DELETE CLICK EVENT = ', v);
+  this.vehicleToDelete = v;
+  this.showDeleteModal = true;
+}
+
 
   confirmDelete() {
     this.vehicles = this.vehicles.filter(v => v.id !== this.vehicleToDelete!.id);

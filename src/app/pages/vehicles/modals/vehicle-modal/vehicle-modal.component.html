@@ -1,13 +1,12 @@
 <div class="vehicle-overlay" *ngIf="open">
+  <div class="vehicle-box">
 
-  <div class="modal">
-    <div class="modal-header">
+    <div class="vehicle-header">
       <h2>{{ vehicle ? 'Modifier le Véhicule' : 'Ajouter un Véhicule' }}</h2>
-      <button class="close-btn" (click)="close.emit()">✖</button>
+      <button class="vehicle-close" (click)="close.emit()">✖</button>
     </div>
 
-    <div class="modal-body">
-
+    <div class="vehicle-body">
       <div class="row-2">
         <div class="field">
           <label>Marque</label>
@@ -38,17 +37,14 @@
           <option value="maintenance">Maintenance</option>
         </select>
       </div>
-
     </div>
 
-    <div class="modal-footer">
-      <button class="cancel" (click)="close.emit()">Annuler</button>
-      <button class="confirm" (click)="submit()">
+    <div class="vehicle-footer">
+      <button class="vehicle-cancel" (click)="close.emit()">Annuler</button>
+      <button class="vehicle-confirm" (click)="submit()">
         {{ vehicle ? 'Modifier' : 'Ajouter' }}
       </button>
     </div>
+
   </div>
 </div>
-
-
-
