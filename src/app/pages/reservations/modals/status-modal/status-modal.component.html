@@ -1,0 +1,18 @@
+<div class="overlay">
+  <div class="modal">
+    <h3>Changer le Statut de la Réservation</h3>
+
+    <div class="status-list">
+      <button (click)="selectedStatus='confirmée'">Confirmée</button>
+      <button (click)="selectedStatus='en attente'">En attente</button>
+      <button (click)="selectedStatus='annulée'">Annulée</button>
+    </div>
+
+    <div class="actions">
+      <button (click)="close.emit()">Annuler</button>
+      <button class="primary" (click)="confirm.emit(selectedStatus)">
+        Confirmer
+      </button>
+    </div>
+  </div>
+</div>

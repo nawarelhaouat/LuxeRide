@@ -1,79 +1,66 @@
-<div class="container">
+<div class="page">
 
   <h1 class="title">Gestion des Véhicules</h1>
   <p class="subtitle">Gérez votre flotte de véhicules</p>
 
-  <!-- Filters -->
-  <div class="filters">
-    <button (click)="filter('Tous')" [class.active]="selectedFilter === 'Tous'">Tous</button>
-    <button (click)="filter('Disponible')" [class.active]="selectedFilter === 'Disponible'">Disponible</button>
-    <button (click)="filter('Loué')" [class.active]="selectedFilter === 'Loué'">Loué</button>
-    <button (click)="filter('Maintenance')" [class.active]="selectedFilter === 'Maintenance'">Maintenance</button>
+  <!-- FILTRES + ADD BUTTON -->
+  <div class="toolbar">
 
-    <button class="add-btn" (click)="openAdd()">
-  <span class="plus-icon">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <path d="M12 5v14M5 12h14" stroke="white" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-  </span>
-    Ajouter une Véhicule
+    <button
+      class="filter-btn"
+      [class.active]="status === 'all'"
+      (click)="filter('all')">
+      Tous
     </button>
 
+    <button
+      class="filter-btn"
+      [class.active]="status === 'available'"
+      (click)="filter('available')">
+      Disponible
+    </button>
 
+    <button
+      class="filter-btn"
+      [class.active]="status === 'rented'"
+      (click)="filter('rented')">
+      Loué
+    </button>
+
+    <button
+      class="filter-btn"
+      [class.active]="status === 'maintenance'"
+      (click)="filter('maintenance')">
+      Maintenance
+    </button>
+
+    <button class="add-btn" (click)="openAddModal()">
+      <span class="plus">+</span> Ajouter un Véhicule
+    </button>
   </div>
 
   <!-- TABLE -->
-  <table class="vehicle-table">
-    <thead>
-      <tr>
-        <th>Véhicule</th>
-        <th>Immatricule</th>
-        <th>Prix/Jour</th>
-        <th>Statut</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let v of filteredVehicles">
-
-        <td class="vehicle-info">
-          <img [src]="v.imageUrl" />
-          {{ v.brand }} {{ v.model }}
-        </td>
-
-        <td>{{ v.plateNumber }}</td>
-        <td>€{{ v.pricePerDay }}</td>
-
-        <td>
-          <app-status-badge [status]="v.status"></app-status-badge>
-        </td>
-
-        <td class="actions">
-          <button class="edit-btn" (click)="openEdit(v.id)">✏️</button>
-          <button class="delete-btn" (click)="openDelete(v.id)">🗑️</button>
-        </td>
-
-      </tr>
-    </tbody>
-  </table>
+  <app-vehicle-table
+    [vehicles]="filteredVehicles"
+    (edit)="openEditModal($event)"
+    (delete)="openDeleteModal($event)"
+  ></app-vehicle-table>
 
   <!-- MODALS -->
-  <app-add-vehicle-modal 
-        *ngIf="showAdd"
-        (close)="closeModals()">
-  </app-add-vehicle-modal>
+<app-vehicle-modal
+  [open]="showFormModal"
+  [vehicle]="selectedVehicle"
+  (save)="saveVehicle($event)"
+  (close)="showFormModal = false">
+</app-vehicle-modal>
 
-  <app-edit-vehicle-modal
-        *ngIf="showEdit"
-        [vehicleId]="selectedVehicleId!"
-        (close)="closeModals()">
-  </app-edit-vehicle-modal>
+<app-delete-modal
+  [open]="showDeleteModal"
+  [vehicle]="vehicleToDelete"
+  (confirm)="confirmDelete()"
+  (cancel)="showDeleteModal = false">
+</app-delete-modal>
 
-  <app-delete-vehicle-modal
-        *ngIf="showDelete"
-        [vehicleId]="selectedVehicleId!"
-        (close)="closeModals()">
-  </app-delete-vehicle-modal>
+
 
 </div>

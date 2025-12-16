@@ -1,0 +1,31 @@
+<table>
+  <thead>
+    <tr>
+      <th>Référence</th>
+      <th>Nom du client</th>
+      <th>Voiture</th>
+      <th>Statut</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let r of reservations">
+      <td>{{ r.reference }}</td>
+      <td>{{ r.clientName }}</td>
+      <td>
+        {{ r.carBrand }} {{ r.carModel }}<br>
+        <small>{{ r.plate }}</small>
+      </td>
+      <td>
+        <span class="badge" [ngClass]="r.status">
+          {{ r.status }}
+        </span>
+        <button class="icon" (click)="changeStatus.emit(r)">✏️</button>
+      </td>
+      <td>
+        <button class="link" (click)="viewDetails.emit(r)">Détails ›</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,13 +1,21 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { TopbarComponent } from './components/topbar/topbar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SidebarComponent, TopbarComponent],
+  imports: [
+    CommonModule,
+    RouterOutlet // indispensable pour <router-outlet>
+  ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {}
+export class AppComponent {
+  sidebarOpen = true;
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+}

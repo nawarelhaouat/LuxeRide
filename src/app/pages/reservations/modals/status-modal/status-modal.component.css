@@ -1,0 +1,53 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal {
+  background: white;
+  width: 420px;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.status-list button {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.actions button {
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+}
+
+.primary {
+  background: #123c2a;
+  color: white;
+  border: none;
+}

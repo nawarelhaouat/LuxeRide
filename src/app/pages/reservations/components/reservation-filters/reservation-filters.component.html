@@ -1,0 +1,27 @@
+<div class="filters-card">
+  <div class="filters-row">
+
+    <div class="filter-group">
+      <label>Date de début</label>
+      <input
+        type="date"
+        [(ngModel)]="startDate"
+        placeholder="jj/mm/aaaa"
+      />
+    </div>
+
+    <div class="filter-group">
+      <label>Date de fin</label>
+      <input
+        type="date"
+        [(ngModel)]="endDate"
+        placeholder="jj/mm/aaaa"
+      />
+    </div>
+
+    <button class="filter-btn" (click)="applyFilter()">
+      Filtrer
+    </button>
+
+  </div>
+</div>

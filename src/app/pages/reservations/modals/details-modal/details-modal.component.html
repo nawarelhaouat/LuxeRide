@@ -1,0 +1,31 @@
+<div class="overlay">
+  <div class="modal scroll">
+    <button class="close" (click)="close.emit()">✕</button>
+
+    <h3>Détails de la Réservation</h3>
+
+    <section>
+      <h4>Informations du Client</h4>
+      <p><b>Nom :</b> {{ reservation.clientName }}</p>
+      <p><b>Téléphone :</b> {{ reservation.phone }}</p>
+      <p><b>CIN :</b> {{ reservation.cin }}</p>
+    </section>
+
+    <section>
+      <h4>Véhicule</h4>
+      <p>{{ reservation.carBrand }} {{ reservation.carModel }}</p>
+      <p>{{ reservation.plate }}</p>
+    </section>
+
+    <section>
+      <h4>Période de Location</h4>
+      <p>Du {{ reservation.startDate }} au {{ reservation.endDate }}</p>
+    </section>
+
+    <section>
+      <h4>Paiement</h4>
+      <p><b>Total :</b> {{ reservation.totalPrice }} MAD</p>
+      <p><b>Moyen :</b> {{ reservation.paymentMethod }}</p>
+    </section>
+  </div>
+</div>
