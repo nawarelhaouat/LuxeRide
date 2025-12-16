@@ -59,14 +59,17 @@ export class ReservationsComponent {
   showDetailsModal = false;
 
   openStatusModal(res: Reservation) {
-    this.selectedReservation = res;
-    this.showStatusModal = true;
-  }
+  console.log('OPEN STATUS MODAL', res);
+  this.selectedReservation = res;
+  this.showStatusModal = true;
+}
 
-  openDetailsModal(res: Reservation) {
-    this.selectedReservation = res;
-    this.showDetailsModal = true;
-  }
+openDetailsModal(res: Reservation) {
+  console.log('OPEN DETAILS MODAL', res);
+  this.selectedReservation = res;
+  this.showDetailsModal = true;
+}
+
 
   updateStatus(status: Reservation['status']) {
     if (this.selectedReservation) {

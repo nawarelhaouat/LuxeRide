@@ -1,21 +1,32 @@
+/* 🔥 SORTIR DU STACKING CONTEXT */
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+}
+
+/* Overlay */
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(8, 8, 8, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 100000;
 }
-.modal {
-  background: white;
-  width: 520px;
+
+/* Modal */
+.overlay > .modal {
+  position: relative;
+  background: #ffffff;
+  width: min(520px, 92vw);
   max-height: 85vh;
   overflow-y: auto;
   border-radius: 16px;
   padding: 24px;
-  position: relative;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  z-index: 100001;
 }
 
 .close {
@@ -45,4 +56,15 @@ section h4 {
 section p {
   margin: 6px 0;
   font-size: 14px;
+}
+.overlay {
+  outline: 5px solid rgb(69, 61, 22) !important;
+}
+
+.overlay > .modal {
+  outline: 5px solid #ecdeac9d !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  transform: none !important;
 }

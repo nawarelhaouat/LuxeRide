@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter ,ViewEncapsulation} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Reservation } from '../../../../models/reservation';
 
@@ -7,7 +7,8 @@ import { Reservation } from '../../../../models/reservation';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './details-modal.component.html',
-  styleUrls: ['./details-modal.component.css']
+  styleUrls: ['./details-modal.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DetailsModalComponent {
 

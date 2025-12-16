@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter ,ViewEncapsulation} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Reservation } from '../../../../models/reservation';
 
@@ -7,7 +7,8 @@ import { Reservation } from '../../../../models/reservation';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './status-modal.component.html',
-  styleUrls: ['./status-modal.component.css']
+  styleUrls: ['./status-modal.component.css'],
+  encapsulation: ViewEncapsulation.None 
 })
 export class StatusModalComponent {
   @Input() reservation!: Reservation;

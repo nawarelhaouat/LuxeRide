@@ -3,9 +3,23 @@
     <h3>Changer le Statut de la Réservation</h3>
 
     <div class="status-list">
-      <button (click)="selectedStatus='confirmée'">Confirmée</button>
-      <button (click)="selectedStatus='en attente'">En attente</button>
-      <button (click)="selectedStatus='annulée'">Annulée</button>
+      <button 
+        [class.selected]="selectedStatus === 'confirmée'"
+        (click)="selectedStatus='confirmée'">
+        Confirmée
+      </button>
+      
+      <button 
+        [class.selected]="selectedStatus === 'en attente'"
+        (click)="selectedStatus='en attente'">
+        En attente
+      </button>
+      
+      <button 
+        [class.selected]="selectedStatus === 'annulée'"
+        (click)="selectedStatus='annulée'">
+        Annulée
+      </button>
     </div>
 
     <div class="actions">
