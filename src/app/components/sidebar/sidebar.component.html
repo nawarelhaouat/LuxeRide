@@ -1,6 +1,4 @@
 <mat-sidenav-container class="layout-container">
-
-  <!-- ================= SIDEBAR ================= -->
   <mat-sidenav
     #sidenav
     class="side-nav"
@@ -18,7 +16,6 @@
         <div class="brand-subtitle">Premium</div>
       </div>
     </div>
-
     <mat-nav-list class="menu-list">
       <a mat-list-item class="menu-item"
          routerLink="/dashboard"
@@ -27,14 +24,12 @@
         <mat-icon>space_dashboard</mat-icon>
         <span>Tableau de Bord</span>
       </a>
-
       <a mat-list-item class="menu-item"
          routerLink="/vehicules"
          routerLinkActive="active">
         <mat-icon>directions_car</mat-icon>
         <span>Véhicules</span>
       </a>
-
       <a mat-list-item class="menu-item"
          routerLink="/reservations"
          routerLinkActive="active">
@@ -44,7 +39,6 @@
     </mat-nav-list>
 
     <div class="logout-container">
-      <!-- ✅ AJOUT CLICK -->
       <button mat-button class="logout-button" (click)="logout()">
         <mat-icon>logout</mat-icon>
         <span>Déconnexion</span>
@@ -52,7 +46,6 @@
     </div>
   </mat-sidenav>
 
-  <!-- ================= CONTENT ================= -->
   <mat-sidenav-content class="main-content">
 
     <mat-toolbar class="top-toolbar">
