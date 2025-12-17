@@ -5,6 +5,8 @@ use App\Http\Controllers\AdminAuthController;
 
 use App\Http\Controllers\VoitureController;
 
+use App\Http\Controllers\DashboardController;
+
 Route::prefix('voiture')->group(function () {
 
     Route::get('/', [VoitureController::class, 'index']);      // GET /api/voiture
@@ -19,9 +21,14 @@ Route::get('/test', function () {
 
 
 Route::prefix('admin')->group(function () {
-    
+
     Route::post('/login', [AdminAuthController::class, 'login']); // POST /api/admin/login
-    
+
+    //Route Dashboard
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/', [DashboardController::class, 'index']);      // GET /api/admin/dashboard
+    });
+
     Route::middleware('admin')->group(function () {
       //Routes voitures
       Route::prefix('voiture')->group(function () {
@@ -29,6 +36,7 @@ Route::prefix('admin')->group(function () {
           Route::put('{id}', [VoitureController::class, 'update']);    // PUT /api/admin/voiture/{id}
           Route::delete('{id}', [VoitureController::class, 'destroy']); // DELETE /api/admin/voiture/{id}
       });
+
     });
 
 });
