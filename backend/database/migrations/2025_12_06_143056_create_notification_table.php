@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('notification', function (Blueprint $table) {
 
-            $table->integer('id_notification')->primary();
+            $table->integer('id_notification')->primary()->autoIncrement();
             $table->string('message', 50)->nullable();
             $table->boolean('lu')->nullable();
             $table->string('titre', 50)->nullable();
@@ -24,6 +24,8 @@ return new class extends Migration
                   ->references('id_admin')
                   ->on('admin')
                   ->onDelete('cascade');
+
+            $table->timestamps();
         });
     }
 
