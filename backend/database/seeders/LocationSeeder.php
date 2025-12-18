@@ -26,7 +26,7 @@ class LocationSeeder extends Seeder
                 'cin_client'       => 'AA123456',
                 'valide'           => true,
                 'id_voiture'       => 1,
-                'id_admin'         => 'admin01',
+                'id_admin'         => 'ADM001',
             ],
 
             [
@@ -42,7 +42,7 @@ class LocationSeeder extends Seeder
                 'cin_client'       => 'BB654321',
                 'valide'           => false,
                 'id_voiture'       => 2,
-                'id_admin'         => 'admin02',
+                'id_admin'         => 'ADM001',
             ]
         ]);
     }

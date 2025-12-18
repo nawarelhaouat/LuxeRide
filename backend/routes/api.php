@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
-
 use App\Http\Controllers\VoitureController;
+use App\Http\Controllers\ReservationController;
 
 Route::prefix('voiture')->group(function () {
 
@@ -30,7 +30,12 @@ Route::prefix('admin')->group(function () {
           Route::delete('{id}', [VoitureController::class, 'destroy']); // DELETE /api/admin/voiture/{id}
       });
 
-      Route::resource('Reservation', ReservationController::class);
+
+      Route::prefix('Reservation')->group(function () {
+        Route::get('/', [ReservationController::class, 'index']);   
+        Route::get('{id}', [ReservationController::class, 'show']);    
+        Route::patch('{id}', [ReservationController::class, 'update']); 
+   });
 
     });
 
