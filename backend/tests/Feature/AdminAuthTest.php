@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Contact;
 
+
 class AdminAuthTest extends TestCase
 {
     use RefreshDatabase;

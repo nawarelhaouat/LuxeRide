@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+
         Schema::create('location', function (Blueprint $table) {
 
             $table->integer('id_location')->primary();

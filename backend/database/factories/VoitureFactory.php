@@ -26,7 +26,7 @@ class VoitureFactory extends Factory
             'prix_par_jour' => $this->faker->numberBetween(100, 1000),
             'image' => $this->faker->imageUrl(640, 480, 'cars'),
             'statut' => $this->faker->randomElement(['disponible', 'loue', 'en_maintenance']),
-            'id_admin' => 'ADM001',
+            'id_admin' => Admin::factory(),
             'date_ajout' => now(),
         ];
     }

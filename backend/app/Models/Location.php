@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Location extends Model
 {
+    use HasFactory;
     // Nom de la table
     protected $table = 'location';
 
@@ -21,6 +22,10 @@ class Location extends Model
     // Pas de timestamps dans ta table
     public $timestamps = false;
 
+    protected $casts = [
+    'valide' => 'boolean',
+];
+ 
     // Champs modifiables en masse
     protected $fillable = [
         'id_location',

@@ -13,7 +13,7 @@ class AdminFactory extends Factory
     {
         return [
             // ID string unique
-            'id_admin' => 'ADM' . $this->faker->unique()->numberBetween(1, 9999),
+            'id_admin' => 'ADM' . $this->faker->unique()->numberBetween(1000, 9999),
 
             'nom' => $this->faker->lastName(),
             'prenom' => $this->faker->firstName(),
