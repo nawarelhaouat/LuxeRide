@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             VoitureSeeder::class,
             LocationSeeder::class,
+            NotificationSeeder::class,
         ]);
     }
 }

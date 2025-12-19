@@ -2,58 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\voiture;
 use Illuminate\Http\Request;
+use App\Services\VoitureService;
 
 class VoitureController extends Controller
 {
-    // Lister les voitures avec filtrage
+    protected $voitureService;
+
+    public function __construct(VoitureService $voitureService)
+    {
+        $this->voitureService = $voitureService;
+    }
+
     public function index(Request $request)
     {
         $statut = $request->query('statut');
-        $query = voiture::query();
-
-        if ($statut && in_array($statut, ['disponible', 'loue', 'en_maintenance'])) {
-            $query->where('statut', $statut);
-        }
-
-        $voitures = $query->get();
-
-
-        $mapped = $voitures->map(function ($v) {
-            return [
-                'id' => $v->id_voiture,
-                'brand' => $v->marque,
-                'model' => $v->modele,
-                'plate_number' => $v->immatriculation,
-                'price_per_day' => $v->prix_par_jour,
-                'status' => $v->statut,
-                'image_url' => $v->image,
-            ];
-        });
-
-        return response()->json($mapped);
+        $voitures = $this->voitureService->getAll($statut);
+        return response()->json($voitures);
     }
 
-    // Afficher une voiture
     public function show($id)
     {
-        $voiture = voiture::findOrFail($id);
-
-        $mapped = [
-            'id' => $voiture->id_voiture,
-            'brand' => $voiture->marque,
-            'model' => $voiture->modele,
-            'plate_number' => $voiture->immatriculation,
-            'price_per_day' => $voiture->prix_par_jour,
-            'status' => $voiture->statut,
-            'image_url' => $voiture->image
-        ];
-
-        return response()->json($mapped);
+        $voiture = $this->voitureService->getById($id);
+        return response()->json($voiture);
     }
 
-    // Ajouter une voiture
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -77,26 +50,12 @@ class VoitureController extends Controller
             'date_ajout' => now(),
         ];
 
-        $voiture = Voiture::create($data);
-
-        $response = [
-            'id' => $voiture->id_voiture,
-            'brand' => $voiture->marque,
-            'model' => $voiture->modele,
-            'plate_number' => $voiture->immatriculation,
-            'price_per_day' => $voiture->prix_par_jour,
-            'status' => $voiture->statut,
-            'image_url' => $voiture->image,
-        ];
-
-        return response()->json($response, 201);
+        $voiture = $this->voitureService->create($data);
+        return response()->json($voiture, 201);
     }
 
-    // Modifier une voiture
     public function update(Request $request, $id)
     {
-        $voiture = voiture::findOrFail($id);
-
         $validated = $request->validate([
             'brand' => 'sometimes|string|max:50',
             'model' => 'sometimes|string|max:50',
@@ -116,26 +75,13 @@ class VoitureController extends Controller
         if(isset($validated['status'])) $data['statut'] = $validated['status'];
         if(isset($validated['id_admin'])) $data['id_admin'] = $validated['id_admin'];
 
-        $voiture->update($data);
-
-        $response = [
-            'id' => $voiture->id_voiture,
-            'brand' => $voiture->marque,
-            'model' => $voiture->modele,
-            'plate_number' => $voiture->immatriculation,
-            'price_per_day' => $voiture->prix_par_jour,
-            'status' => $voiture->statut,
-            'image_url' => $voiture->image,
-        ];
-
-        return response()->json($response);
+        $voiture = $this->voitureService->update($id, $data);
+        return response()->json($voiture);
     }
 
-    // Supprimer une voiture
     public function destroy($id)
     {
-        $voiture = voiture::findOrFail($id);
-        $voiture->delete();
+        $this->voitureService->delete($id);
         return response()->json(['message' => 'Voiture supprimée']);
     }
 }
