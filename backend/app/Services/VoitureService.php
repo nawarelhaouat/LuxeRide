@@ -147,7 +147,7 @@ class VoitureService
     public function getVehicles(array $filters = [])
     {
         $query = Voiture::query()
-            ->select('id_voiture', 'marque', 'modele', 'prix_par_jour', 'image', 'statut'); // <-- remplacer 'disponibilite' par 'statut'
+            ->select('id_voiture', 'marque', 'modele', 'prix_par_jour', 'image', 'statut');
 
         if (!empty($filters['statut'])) {
             $query->where('statut', $filters['statut']);
@@ -164,10 +164,8 @@ class VoitureService
         if (!empty($filters['prix_max'])) {
             $query->where('prix_par_jour', '<=', $filters['prix_max']);
         }
-
-        // Vérifie la disponibilité réelle sur une période donnée
         if (!empty($filters['date_debut']) && !empty($filters['date_fin'])) {
-            $query->where('statut', 'disponible') // <-- vérifier le statut
+            $query->where('statut', 'disponible')
             ->whereNotIn('id_voiture', function ($subQuery) use ($filters) {
                 $subQuery->select('id_voiture')
                     ->from('location')

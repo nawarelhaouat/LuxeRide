@@ -56,23 +56,29 @@ class VoitureController extends Controller
             'model' => 'required|string|max:50',
             'plate_number' => 'required|string|max:50|unique:voiture,immatriculation',
             'price_per_day' => 'required|numeric',
-            'image_url' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'status' => 'required|in:disponible,loue,en_maintenance',
             'id_admin' => 'required|exists:admin,id_admin',
         ]);
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+        }
 
         $data = [
             'marque' => $validated['brand'],
             'modele' => $validated['model'],
             'immatriculation' => $validated['plate_number'],
             'prix_par_jour' => $validated['price_per_day'],
-            'image' => $validated['image_url'] ?? null,
+            'image' => $imagePath,
             'statut' => $validated['status'],
             'id_admin' => $validated['id_admin'],
             'date_ajout' => now(),
         ];
 
         $voiture = $this->voitureService->create($data);
+
         return response()->json($voiture, 201);
     }
 
