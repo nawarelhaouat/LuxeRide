@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('voiture', function (Blueprint $table) {
 
-            $table->integer('id_voiture')->primary();
+            $table->increments('id_voiture');
             $table->string('marque', 50);
             $table->string('modele', 50);
             $table->string('immatriculation', 50);

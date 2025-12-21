@@ -3,13 +3,18 @@
 namespace App\Models;
 
 use Database\Factories\VoitureFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class location extends Model {
+
+    use HasFactory;
+
     protected $table = 'location';
     protected $primaryKey = 'id_location';
-    public $incrementing = true;
+    public $incrementing = false;
     protected $keyType = 'int';
+    public $timestamps = false;
     protected $fillable = [
         'id_location',
         'date_reservation',
