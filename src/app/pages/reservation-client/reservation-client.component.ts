@@ -1,26 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { SelectedVehicleService } from '../../services/selected-vehicle.service';
 
 @Component({
   selector: 'app-reservation-client',
+  standalone: true,
   templateUrl: './reservation-client.component.html',
-  styleUrls: ['./reservation-client.component.css'],
 })
 export class ReservationClientComponent implements OnInit {
+  vehicleId?: string;
 
-  vehicleId!: string;
-  vehicle: any;
-
-  constructor(private route: ActivatedRoute) {}
+  constructor(private router: Router, private selectedVehicle: SelectedVehicleService) {}
 
   ngOnInit(): void {
-    // 🔹 ID depuis l’URL
-    this.vehicleId = this.route.snapshot.paramMap.get('id')!;
+    const id = this.selectedVehicle.get();
+    if (!id) {
+      // si user ouvre la page direct
+      this.router.navigate(['/vehicules-client']);
+      return;
+    }
+    this.vehicleId = id;
 
-    // 🔹 Données passées depuis la page précédente (optionnel)
-    this.vehicle = history.state?.vehicle;
-
-    // 🔹 Cas réel backend (plus tard)
-    // this.vehicleService.getById(this.vehicleId).subscribe(...)
+    // Ici tu peux appeler backend GET /vehicles/:id si tu veux afficher détails
   }
 }

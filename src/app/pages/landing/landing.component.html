@@ -1,8 +1,8 @@
 <app-navbar></app-navbar>
-<app-hero-section></app-hero-section>
+<app-hero-section revealOnScroll [once]="false"></app-hero-section>
 <div class="landing-gap"></div>
 
-<section class="brands">
+<section class="brands" revealOnScroll [once]="false">
   <div class="brands__container">
     <div class="brand-card">
 <svg  class="brand brand--slow" viewBox="0 0 120 60" aria-label="Audi" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -73,4 +73,121 @@
 </svg></div>
 </div>
 </section>
-<app-popular-offers></app-popular-offers>
+<app-popular-offers revealOnScroll [once]="false"></app-popular-offers>
+<section id="about" class="about" revealOnScroll="top">
+  <div class="about__container ">
+    <!-- LEFT -->
+    <div class="about__left " >
+      <h2 class="about__title">LuxeRide</h2>
+
+      <p class="about__subtitle">
+        LuxeRide redéfinit l’expérience de location
+        automobile.
+      </p>
+
+      <p class="about__text">
+        Découvrez une sélection de véhicules haut de gamme, soigneusement choisis
+        pour allier confort, performance et élégance. Profitez d’un service
+        simple, sécurisé et flexible, pensé pour vous offrir une expérience de
+        réservation fluide et une tranquillité totale, du premier clic jusqu’à la
+        prise en main du véhicule.
+      </p>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="about__right" aria-hidden="true">
+      <!-- Mets ton image ici (png/svg) -->
+<img class="about__phones " src="assets/images/about.png" alt="LuxeRide App" />
+
+    </div>
+  </div>
+</section>
+<section class="features" id="services" revealOnScroll [once]="false">
+  <div class="features__wrap">
+    <header class="features__head " >
+      <h2 class="features__title">Nos Services</h2>
+
+      <p class="features__subtitle">AU SERVICE DE CHAQUE CLIENT</p>
+      <p class="features__desc">
+        Nous plaçons le confort et la satisfaction de nos clients au cœur de nos priorités.
+      </p>
+    </header>
+
+    <div class="features__grid">
+      <!-- Card 1 -->
+      <article class="feature-card feature-card--blue">
+        <div class="feature-card__icon">
+          <!-- Headset icon (SVG) -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M4 12a8 8 0 0 1 16 0v6a2 2 0 0 1-2 2h-2v-7h4v-1a6 6 0 1 0-12 0v1h4v7H6a2 2 0 0 1-2-2v-6z"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <p class="feature-card__text">Assistance technique 24/7</p>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="feature-card feature-card--purple">
+        <div class="feature-card__icon">
+          <!-- Car icon (SVG) -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M7 16h10m-9 0a2 2 0 1 0 0 4m8-4a2 2 0 1 0 0 4M5 16l1.5-6A2 2 0 0 1 8.4 8h7.2a2 2 0 0 1 1.9 2L19 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M6.2 12h11.6"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+        <p class="feature-card__text">Véhicules premium équipés</p>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="feature-card feature-card--peach">
+        <div class="feature-card__icon">
+          <!-- Lock icon (SVG) -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M7 11V8a5 5 0 0 1 10 0v3"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+            <path
+              d="M6.5 11h11A2.5 2.5 0 0 1 20 13.5v6A2.5 2.5 0 0 1 17.5 22h-11A2.5 2.5 0 0 1 4 19.5v-6A2.5 2.5 0 0 1 6.5 11z"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <p class="feature-card__text">Confidentialité totale</p>
+      </article>
+    </div>
+  </div>
+</section>
+<!-- CONTACT -->
+<section id="contact" revealOnScroll [once]="false">
+  <app-contact></app-contact>
+</section>
+
+<!-- FOOTER -->
+<app-footer revealOnScroll [once]="false"></app-footer>

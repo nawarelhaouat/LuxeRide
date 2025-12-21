@@ -1,0 +1,32 @@
+<footer class="footer">
+  <div class="footer__wrap">
+
+    <!-- Logo -->
+    <div class="footer__brand">
+      <h3>LuxeRide</h3>
+      <p>Location de voitures premium au Maroc</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="footer__nav">
+      <a (click)="goHome()">Accueil</a>
+     <a class="nav-link" [routerLink]="['/vehicules-client']">Véhicules</a>
+
+<a (click)="goSection('about')">About us</a>
+<a (click)="goSection('services')">Nos Services</a>
+<a (click)="goSection('contact')">Contact</a>
+
+    </nav>
+
+    <!-- Contact -->
+    <div class="footer__contact">
+      <p>Tanger, Maroc</p>
+      <p>contact&#64;luxeride.ma</p>
+    </div>
+
+  </div>
+
+  <div class="footer__bottom">
+    © 2025 LuxeRide — Tous droits réservés
+  </div>
+</footer>

@@ -1,40 +1,268 @@
+/* NAVBAR FIXE */
 .custom-navbar {
-    background-color: #d6cabc;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    box-shadow: none !important;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-left: 0px;
-    margin-bottom: 0px; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  height: 68px;
+  padding: 0;
+  z-index: 9999;
+  box-shadow: 0 2px 10px rgba(29,57,55,.15);
+  transition: height .25s ease, box-shadow .25s ease, background .25s ease;
 }
 
-/* Conteneur de la marque - Sert de point de référence */
-.navbar-brand {
-    display: flex;
-    position: relative; 
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
-    
-    height: 68px; 
-    align-items: center; 
+/* navbar "compact" au scroll */
+.custom-navbar.scrolled {
+  height: 60px;
+  box-shadow: 0 4px 15px rgba(29,57,55,.2);
+  backdrop-filter: blur(5px);
 }
 
-/* Logo */
+/* IMPORTANT : le contenu ne doit pas passer dessous */
+body {
+  padding-top: 68px;
+}
+
+/* le container bootstrap garde la hauteur alignée */
+.custom-navbar .navbar-brand {
+  height: 68px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.custom-navbar.scrolled .navbar-brand {
+  height: 60px;
+}
+
+/* Animation du logo */
 .logo {
-    height: 60px;
-    width: auto;
-    margin-top: 0;
-    position: absolute;
-    top: 0px; 
-    left: 0; 
+  height: 55px;
+  width: auto;
+  transition: transform 0.4s ease;
 }
 
-.nav-link {
-    font-size: 16px;
-    margin-left: 15px;
-    color: #91855a !important;
-    font-weight: bold;
+.custom-navbar.scrolled .logo {
+  height: 50px;
+}
+
+/* Animation au survol de la marque */
+.navbar-brand:hover {
+  transform: translateX(-5px);
+}
+
+.navbar-brand:hover .logo {
+  transform: scale(1.05);
+}
+
+/* Menu hamburger personnalisé */
+.navbar-toggler {
+  border: none;
+  padding: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 2px rgba(145, 133, 90, 0.2);
+}
+
+.navbar-toggler-icon {
+  background-image: none;
+  position: relative;
+  width: 24px;
+  height: 2px;
+  background-color: #1D3937;
+  transition: all 0.3s ease;
+}
+
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background-color: #1D3937;
+  left: 0;
+  transition: all 0.3s ease;
+}
+
+.navbar-toggler-icon::before {
+  top: -8px;
+}
+
+.navbar-toggler-icon::after {
+  top: 8px;
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+  background-color: transparent;
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
+  transform: rotate(45deg) translate(5px, 8px);
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
+  transform: rotate(-45deg) translate(5px, -8px);
+}
+
+/* MENU */
+.navbar-nav {
+  align-items: center;
+}
+
+.navbar-nav .nav-item {
+  position: relative;
+  margin: 0 2px;
+  animation: navLinkFadeIn 0.5s ease forwards;
+  opacity: 0;
+}
+
+/* Animation d'apparition des liens */
+@keyframes navLinkFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar-nav .nav-item:nth-child(1) { animation-delay: 0.1s; }
+.navbar-nav .nav-item:nth-child(2) { animation-delay: 0.2s; }
+.navbar-nav .nav-item:nth-child(3) { animation-delay: 0.3s; }
+.navbar-nav .nav-item:nth-child(4) { animation-delay: 0.4s; }
+.navbar-nav .nav-item:nth-child(5) { animation-delay: 0.5s; }
+
+/* tes styles lien */
+.navbar-nav .nav-link {
+  font-size: 18px;
+  padding: 8px 15px !important;
+  margin: 0 10px;
+  color: #1D3937 !important;
+  font-weight: 400;
+  position: relative;
+  text-decoration: none;
+  transition: all .25s ease;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* EFFET AU SURVOL - EXACTEMENT COMME .active */
+.navbar-nav .nav-link:hover {
+  color: #91855a !important;
+  font-weight: 500;
+}
+
+/* Soulignement au survol - EXACTEMENT COMME .active */
+.navbar-nav .nav-link:hover::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background: #91855a;
+  border-radius: 1px;
+  animation: underlineSlide 0.3s ease forwards;
+}
+
+.navbar-nav .nav-link.active {
+  color: #91855a !important;
+  font-weight: 500;
+}
+
+.navbar-nav .nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background: #91855a;
+  border-radius: 1px;
+  animation: underlineSlide 0.3s ease forwards;
+}
+
+@keyframes underlineSlide {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 20px;
+    opacity: 1;
+  }
+}
+
+/* Bouton CTA optionnel (si ajouté plus tard) */
+.navbar-cta {
+  margin-left: 20px;
+}
+
+.navbar-cta .btn {
+  padding: 10px 25px;
+  background-color: #91855a;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(145, 133, 90, 0.2);
+}
+
+.navbar-cta .btn:hover {
+  background-color: #7a6f4d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(145, 133, 90, 0.3);
+}
+
+/* Transition pour le menu déroulant */
+.collapsing {
+  transition: height 0.35s ease !important;
+}
+
+/* MOBILE */
+@media (max-width: 991.98px) {
+  body { 
+    padding-top: 68px; 
+  }
+
+  .navbar-collapse {
+    background: #fff;
+    box-shadow: 0 10px 20px rgba(29,57,55,.1);
+    border-radius: 0 0 10px 10px;
+    margin-top: 10px;
+    padding: 15px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+  }
+
+  .navbar-nav .nav-link {
+    margin: 5px 0;
+    padding: 12px 20px !important;
+    text-align: center;
+  }
+
+  .navbar-nav .nav-link.active::after,
+  .navbar-nav .nav-link:hover::after {
+    left: 50%;
+    bottom: 8px;
+  }
+
+  .navbar-nav .nav-link:hover {
+    transform: translateX(5px);
+  }
 }

@@ -1,0 +1,87 @@
+<section class="contact">
+  <div class="contact__wrap">
+    <header class="contact__head">
+      <h2 class="contact__title">Contact</h2>
+      <p class="contact__desc">
+        Une question ? Besoin d’un devis ? Écrivez-nous et on vous répond rapidement.
+      </p>
+    </header>
+
+    <div class="contact__grid">
+      <!-- Infos -->
+      <div class="contact__info">
+        <div class="info-card">
+          <div class="info-title">Téléphone</div>
+          <div class="info-value">+212 6 00 00 00 00</div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-title">Email</div>
+          <div class="info-value">contact&#64;luxeride.ma</div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-title">Adresse</div>
+          <div class="info-value">Tanger, Maroc</div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form class="contact__form" [formGroup]="form" (ngSubmit)="submit()">
+
+        <!-- Alert global -->
+        <div *ngIf="successMsg" class="alert alert--success">
+          {{ successMsg }}
+        </div>
+
+        <div *ngIf="errorMsg" class="alert alert--error">
+          {{ errorMsg }}
+        </div>
+
+        <div class="field">
+          <label>Nom <span class="req">*</span></label>
+          <input
+            type="text"
+            formControlName="name"
+            placeholder="Votre nom"
+            [class.input--invalid]="isInvalid('name')"
+          />
+          <small class="err" *ngIf="isInvalid('name')">
+            {{ fieldError('name') }}
+          </small>
+        </div>
+
+        <div class="field">
+          <label>Email <span class="req">*</span></label>
+          <input
+            type="email"
+            formControlName="email"
+            placeholder="ex: you@example.com"
+            [class.input--invalid]="isInvalid('email')"
+          />
+          <small class="err" *ngIf="isInvalid('email')">
+            {{ fieldError('email') }}
+          </small>
+        </div>
+
+        <div class="field field--full">
+          <label>Message <span class="req">*</span></label>
+          <textarea
+            rows="5"
+            formControlName="message"
+            placeholder="Votre message..."
+            [class.input--invalid]="isInvalid('message')"
+          ></textarea>
+          <small class="err" *ngIf="isInvalid('message')">
+            {{ fieldError('message') }}
+          </small>
+        </div>
+
+        <button class="btn-send" type="submit" [disabled]="loading || form.invalid">
+          {{ loading ? 'Envoi...' : 'Envoyer' }}
+        </button>
+
+      </form>
+    </div>
+  </div>
+</section>

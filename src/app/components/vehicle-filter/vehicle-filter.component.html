@@ -1,0 +1,51 @@
+<form class="search-box" (ngSubmit)="submit()">
+
+<mat-form-field class="mat-field" appearance="outline">
+    <input
+      matInput
+      [matDatepicker]="pickerStart"
+      [(ngModel)]="startDate"
+      name="startDate"
+      placeholder="date de debut"
+      [min]="today"
+      [matDatepickerFilter]="dateFilter"
+      readonly
+      (keydown)="$event.preventDefault()"
+      (paste)="$event.preventDefault()"
+    />
+    <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+    <mat-datepicker #pickerStart></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="mat-field" appearance="outline">
+    <input
+      matInput
+      [matDatepicker]="pickerEnd"
+      [(ngModel)]="endDate"
+      name="endDate"
+      placeholder="date de fin"
+      [min]="startDate || today"
+      [matDatepickerFilter]="dateFilter"
+      [disabled]="!startDate"
+      readonly
+      (keydown)="$event.preventDefault()"
+      (paste)="$event.preventDefault()"
+    />
+    <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+    <mat-datepicker #pickerEnd></mat-datepicker>
+  </mat-form-field>
+
+ <div class="field select-field" [class.filled]="price">
+  <select [(ngModel)]="price" name="price" required>
+  <option value="" disabled selected>Prix</option>
+  <option value="200">≤ 200</option>
+  <option value="500">≤ 500</option>
+  <option value="1000">≤ 1000</option>
+</select>
+
+</div>
+
+
+  <button class="btn-search" type="submit">Rechercher</button>
+
+</form>
