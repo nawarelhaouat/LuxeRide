@@ -1,0 +1,50 @@
+[1mdiff --git a/src/app/components/sidebar/sidebar.component.html b/src/app/components/sidebar/sidebar.component.html[m
+[1mindex 9c54513..e2e675c 100644[m
+[1m--- a/src/app/components/sidebar/sidebar.component.html[m
+[1m+++ b/src/app/components/sidebar/sidebar.component.html[m
+[36m@@ -1,6 +1,4 @@[m
+ <mat-sidenav-container class="layout-container">[m
+[31m-[m
+[31m-  <!-- ================= SIDEBAR ================= -->[m
+   <mat-sidenav[m
+     #sidenav[m
+     class="side-nav"[m
+[36m@@ -18,7 +16,6 @@[m
+         <div class="brand-subtitle">Premium</div>[m
+       </div>[m
+     </div>[m
+[31m-[m
+     <mat-nav-list class="menu-list">[m
+       <a mat-list-item class="menu-item"[m
+          routerLink="/dashboard"[m
+[36m@@ -27,14 +24,12 @@[m
+         <mat-icon>space_dashboard</mat-icon>[m
+         <span>Tableau de Bord</span>[m
+       </a>[m
+[31m-[m
+       <a mat-list-item class="menu-item"[m
+          routerLink="/vehicules"[m
+          routerLinkActive="active">[m
+         <mat-icon>directions_car</mat-icon>[m
+         <span>Véhicules</span>[m
+       </a>[m
+[31m-[m
+       <a mat-list-item class="menu-item"[m
+          routerLink="/reservations"[m
+          routerLinkActive="active">[m
+[36m@@ -44,7 +39,6 @@[m
+     </mat-nav-list>[m
+ [m
+     <div class="logout-container">[m
+[31m-      <!-- ✅ AJOUT CLICK -->[m
+       <button mat-button class="logout-button" (click)="logout()">[m
+         <mat-icon>logout</mat-icon>[m
+         <span>Déconnexion</span>[m
+[36m@@ -52,7 +46,6 @@[m
+     </div>[m
+   </mat-sidenav>[m
+ [m
+[31m-  <!-- ================= CONTENT ================= -->[m
+   <mat-sidenav-content class="main-content">[m
+ [m
+     <mat-toolbar class="top-toolbar">[m

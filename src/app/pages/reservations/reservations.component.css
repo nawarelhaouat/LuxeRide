@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  padding: 28px 32px;
+}
+
+h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #a16b2f;
+  margin-bottom: 28px;
+}

@@ -1,0 +1,41 @@
+<div class="table-container">
+  <table class="vehicle-table">
+    <thead>
+      <tr>
+        <th>Véhicule</th>
+        <th>Immatricule</th>
+        <th>Prix/Jour</th>
+        <th>Statut</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let v of vehicles">
+        <td class="vehicle-info">
+          <img [src]="v.image" alt="car" class="car-img">
+          <span>{{ v.brand }} {{ v.model }}</span>
+        </td>
+
+        <td>{{ v.plate }}</td>
+        <td>€{{ v.pricePerDay }}</td>
+
+        <td>
+          <span [class]="getStatusClass(v.status)">
+            {{ v.status | titlecase }}
+          </span>
+        </td>
+
+        <td class="actions">
+          <button class="btn-icon edit" (click)="edit.emit(v)">
+            ✏️
+          </button>
+
+          <button class="btn-icon delete" (click)="delete.emit(v)">
+            🗑️
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

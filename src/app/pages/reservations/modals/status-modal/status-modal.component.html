@@ -1,0 +1,29 @@
+<div class="overlay">
+  <div class="modal">
+    <h3>Changer le Statut de la Réservation</h3>
+
+    <div class="status-list">
+      <button
+        [class.selected]="selectedStatus === 'valide'"
+        (click)="selectedStatus = 'valide'">
+        Valide
+      </button>
+
+      <button
+        [class.selected]="selectedStatus === 'non valide'"
+        (click)="selectedStatus = 'non valide'">
+        Non valide
+      </button>
+    </div>
+
+    <div class="actions">
+      <button (click)="close.emit()">Annuler</button>
+      <button
+        class="primary"
+        [disabled]="!selectedStatus"
+        (click)="confirm.emit(selectedStatus)">
+        Confirmer
+      </button>
+    </div>
+  </div>
+</div>

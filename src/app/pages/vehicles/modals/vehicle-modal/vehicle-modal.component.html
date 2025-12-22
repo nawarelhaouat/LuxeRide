@@ -1,0 +1,50 @@
+<div class="vehicle-overlay" *ngIf="open" data-testid="vehicle-modal">
+  <div class="vehicle-box">
+
+    <div class="vehicle-header">
+      <h2>{{ vehicle ? 'Modifier le Véhicule' : 'Ajouter un Véhicule' }}</h2>
+      <button class="vehicle-close" (click)="close.emit()">✖</button>
+    </div>
+
+    <div class="vehicle-body">
+      <div class="row-2">
+        <div class="field">
+          <label>Marque</label>
+          <input type="text" [(ngModel)]="form.brand" name="brand">
+        </div>
+
+        <div class="field">
+          <label>Modèle</label>
+          <input type="text" [(ngModel)]="form.model" name="model">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Immatricule</label>
+        <input type="text" [(ngModel)]="form.plate" name="plate">
+      </div>
+
+      <div class="field">
+        <label>Prix par Jour (€)</label>
+        <input type="number" [(ngModel)]="form.pricePerDay" name="pricePerDay">
+      </div>
+
+      <div class="field">
+        <label>Statut</label>
+        <select [(ngModel)]="form.status" name="status">
+          <option value="available">Disponible</option>
+          <option value="rented">Loué</option>
+          <option value="maintenance">Maintenance</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="vehicle-footer">
+      <button class="vehicle-cancel" (click)="close.emit()">Annuler</button>
+      <button class="vehicle-confirm" (click)="submit()">
+        {{ vehicle ? 'Modifier' : 'Ajouter' }}
+      </button>
+    </div>
+
+  </div>
+</div>
