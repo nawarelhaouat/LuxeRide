@@ -1,3 +1,5 @@
+export type ReservationStatus = 'valide' | 'non valide';
+
 export interface Reservation {
   reference: string;
   clientName: string;
@@ -15,5 +17,5 @@ export interface Reservation {
   totalPrice: number;
   paymentMethod: string;
 
-  status: 'confirmée' | 'en attente' | 'annulée';
+  status: ReservationStatus;
 }

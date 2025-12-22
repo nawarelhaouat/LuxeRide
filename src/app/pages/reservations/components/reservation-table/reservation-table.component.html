@@ -1,11 +1,11 @@
 <table>
   <thead>
-    <tr>
-      <th>Référence</th>
-      <th>Nom du client</th>
-      <th>Voiture</th>
-      <th>Statut</th>
-      <th>Actions</th>
+    <tr >
+      <th >Référence</th>
+      <th >Nom du client</th>
+      <th >Voiture</th>
+      <th class="statut">Statut</th>
+      <th >Actions</th>
     </tr>
   </thead>
 
@@ -17,11 +17,16 @@
         {{ r.carBrand }} {{ r.carModel }}<br>
         <small>{{ r.plate }}</small>
       </td>
-      <td>
-        <span class="badge" [ngClass]="r.status">
-          {{ r.status }}
+      <td >
+        <span
+            class="badge"
+                   [ngClass]="{
+                 'status-valide': r.status === 'valide',
+                 'status-non-valide': r.status === 'non valide'
+              }">
+           {{ r.status }}
         </span>
-        <button class="icon" (click)="changeStatus.emit(r)">✏️</button>
+        <button class="icon" (click)="changeStatus.emit(r)"><img src="assets/images/edit.jpg" alt="Modifier"></button>
       </td>
       <td>
         <button class="link" (click)="viewDetails.emit(r)">Détails ›</button>

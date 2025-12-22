@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Vehicle } from '../../models/vehicle';
+import { VehicleService } from '../../services/vehicle.service';
+
 import { VehicleTableComponent } from './vehicle-table/vehicle-table.component';
 import { VehicleModalComponent } from './modals/vehicle-modal/vehicle-modal.component';
 import { DeleteModalComponent } from './modals/delete-modal/delete-modal.component';
@@ -18,53 +20,38 @@ import { DeleteModalComponent } from './modals/delete-modal/delete-modal.compone
   templateUrl: './vehicles.component.html',
   styleUrls: ['./vehicles.component.css']
 })
-export class VehiclesComponent {
+export class VehiclesComponent implements OnInit {
 
-  // -------------------------
-  //   DÉMO (3 véhicules)
-  // -------------------------
-  vehicles: Vehicle[] = [
-    {
-      id: '1',
-      brand: 'BMW',
-      model: 'Serie 3',
-      plate: 'AB-123-CD',
-      pricePerDay: 85,
-      status: 'available',
-      image: 'assets/cars/bmw.jpg'
-    },
-    {
-      id: '2',
-      brand: 'Mercedes',
-      model: 'C-Class',
-      plate: 'EF-456-GH',
-      pricePerDay: 95,
-      status: 'rented',
-      image: 'assets/cars/mercedes.jpg'
-    },
-    {
-      id: '3',
-      brand: 'Audi',
-      model: 'A4',
-      plate: 'IJ-789-KL',
-      pricePerDay: 80,
-      status: 'maintenance',
-      image: 'assets/cars/audi.jpg'
-    }
-  ];
+  vehicles: Vehicle[] = [];
+  filteredVehicles: Vehicle[] = [];
 
-  filteredVehicles = [...this.vehicles];
   status = 'all';
 
   // MODALS
   showFormModal = false;
-showDeleteModal = false;
+  showDeleteModal = false;
 
-selectedVehicle: Vehicle | null = null;
-vehicleToDelete: Vehicle | null = null;
+  selectedVehicle: Vehicle | null = null;
+  vehicleToDelete: Vehicle | null = null;
+
+  constructor(private vehicleService: VehicleService) {}
+
+  ngOnInit() {
+    this.loadVehicles();
+  }
+
+  loadVehicles() {
+    this.vehicleService.getAll().subscribe({
+      next: (data) => {
+        this.vehicles = data;
+        this.filteredVehicles = data;
+      },
+      error: (err) => console.error('Load error:', err)
+    });
+  }
 
   // ---------------------------
-  // FILTRE
+  // FILTER
   // ---------------------------
   filter(status: string) {
     this.status = status;
@@ -77,49 +64,62 @@ vehicleToDelete: Vehicle | null = null;
   }
 
   // ---------------------------
-  // AJOUTER
+  // ADD
   // ---------------------------
   openAddModal() {
     this.selectedVehicle = null;
     this.showFormModal = true;
   }
 
+  addVehicle(vehicle: Vehicle) {
+    this.vehicleService.addVehicle(vehicle).subscribe({
+      next: () => this.loadVehicles(),
+      error: (err) => console.error('Add error:', err)
+    });
+  }
+
   // ---------------------------
-  // MODIFIER
+  // EDIT
   // ---------------------------
   openEditModal(v: Vehicle) {
     this.selectedVehicle = { ...v };
     this.showFormModal = true;
   }
 
+  updateVehicle(v: Vehicle) {
+    this.vehicleService.updateVehicle(v.id!, v).subscribe({
+
+      next: () => this.loadVehicles(),
+      error: (err) => console.error('Update error:', err)
+    });
+  }
+
   saveVehicle(v: Vehicle) {
-
     if (this.selectedVehicle) {
-      // EDIT
-      const index = this.vehicles.findIndex(x => x.id === v.id);
-      this.vehicles[index] = v;
+      this.updateVehicle(v);
     } else {
-      // ADD
-      this.vehicles.push(v);
+      this.addVehicle(v);
     }
-
-    this.filter(this.status);
     this.showFormModal = false;
   }
 
   // ---------------------------
-  // SUPPRIMER
+  // DELETE
   // ---------------------------
- openDeleteModal(v: Vehicle) {
-  console.log('DELETE CLICK EVENT = ', v);
-  this.vehicleToDelete = v;
-  this.showDeleteModal = true;
-}
-
+  openDeleteModal(v: Vehicle) {
+    this.vehicleToDelete = v;
+    this.showDeleteModal = true;
+  }
 
   confirmDelete() {
-    this.vehicles = this.vehicles.filter(v => v.id !== this.vehicleToDelete!.id);
-    this.filter(this.status);
+    if (!this.vehicleToDelete) return;
+
+    this.vehicleService.deleteVehicle(this.vehicleToDelete!.id!).subscribe({
+
+      next: () => this.loadVehicles(),
+      error: (err) => console.error('Delete error:', err)
+    });
+
     this.showDeleteModal = false;
   }
 }

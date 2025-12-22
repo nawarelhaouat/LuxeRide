@@ -45,10 +45,10 @@
   border-radius: 20px !important;
   padding: 28px !important;
   box-shadow: 
-    0 25px 60px rgba(25, 80, 66, 0.3) !important,
+    0 25px 60px rgba(25, 80, 66, 0.3) 
     0 0 0 1px rgba(25, 80, 66, 0.08) !important;
-   opacity: 1 !important;
-   visibility: visible !important;
+  opacity: 1 !important;
+  visibility: visible !important;
   display: block !important;
   transform: none !important;
   animation: slideUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
@@ -76,7 +76,7 @@
   border-radius: 20px !important;
   padding: 28px !important;
   box-shadow: 
-    0 25px 60px rgba(25, 80, 66, 0.3) !important,
+    0 25px 60px rgba(25, 80, 66, 0.3) 
     0 0 0 1px rgba(25, 80, 66, 0.08) !important;
    opacity: 1 !important;
    visibility: visible !important;
@@ -169,6 +169,9 @@ h3 {
   margin-top: 24px !important;
   padding-top: 20px !important;
   border-top: 1px solid #f1f3f5 !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 120px !important;
 }
 
 .actions button {

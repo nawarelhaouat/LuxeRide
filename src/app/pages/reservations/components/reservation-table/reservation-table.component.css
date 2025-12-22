@@ -76,13 +76,16 @@ small {
    ACTIONS & ICÔNES
 ================================ */
 
-.icon {
-  margin-left: 10px;
-  cursor: pointer;
-  opacity: 0.75;
-  transition: opacity 0.2s ease;
-}
 
+.icon{  background: none;
+  border: none;
+  
+
+}
+.icon img {
+  width: 16px;
+  height: 16px;
+}
 .icon:hover {
   opacity: 1;
 }
@@ -92,4 +95,34 @@ small {
   cursor: pointer;
   background: none;
   border: none;
+}
+
+.statut {
+  padding-left: 50px;
+}
+.badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* VALIDE */
+.status-valide {
+  background: #e9fbf1;
+  color: #195042;
+  border: 1px solid #bbf7d0;
+}
+
+/* NON VALIDE */
+.status-non-valide {
+  background: #feecec;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+td .badge {
+  width: 100px;
+  text-align: center;
 }

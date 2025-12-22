@@ -1,9 +1,9 @@
 export interface Vehicle {
-  id: string;
+  id?: number;                        // facultatif
   brand: string;
   model: string;
   plate: string;
   pricePerDay: number;
-  status: 'available' | 'rented' | 'maintenance';
-  image: string;
+  status: string;                     // string pour compatibilité backend
+  image: string | null;
 }

@@ -3,28 +3,25 @@
     <h3>Changer le Statut de la Réservation</h3>
 
     <div class="status-list">
-      <button 
-        [class.selected]="selectedStatus === 'confirmée'"
-        (click)="selectedStatus='confirmée'">
-        Confirmée
+      <button
+        [class.selected]="selectedStatus === 'valide'"
+        (click)="selectedStatus = 'valide'">
+        Valide
       </button>
-      
-      <button 
-        [class.selected]="selectedStatus === 'en attente'"
-        (click)="selectedStatus='en attente'">
-        En attente
-      </button>
-      
-      <button 
-        [class.selected]="selectedStatus === 'annulée'"
-        (click)="selectedStatus='annulée'">
-        Annulée
+
+      <button
+        [class.selected]="selectedStatus === 'non valide'"
+        (click)="selectedStatus = 'non valide'">
+        Non valide
       </button>
     </div>
 
     <div class="actions">
       <button (click)="close.emit()">Annuler</button>
-      <button class="primary" (click)="confirm.emit(selectedStatus)">
+      <button
+        class="primary"
+        [disabled]="!selectedStatus"
+        (click)="confirm.emit(selectedStatus)">
         Confirmer
       </button>
     </div>

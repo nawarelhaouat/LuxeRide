@@ -7,10 +7,15 @@
   border: 1px solid #f0f0f0;
 }
 
+.alignement{
+  display: flex;
+  gap:24px;
+}
 .filters-row {
   display: flex;
   gap: 24px;
   align-items: flex-end;
+  justify-content: space-between;
 }
 
 label {
@@ -28,11 +33,20 @@ input[type="date"] {
   font-size: 14px;
 }
 
+.filter-group{
+  gap: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.filter-group label {
+  margin-top:5px ;}
+
 .filter-btn {
   height: 44px;
   padding: 10px 24px;
   border-radius: 8px;
-  background: #0a4a2a;/* ✅ VERT */
+  background: #0a4a2a;
   color: white;
   border: none;
   cursor: pointer;

@@ -1,6 +1,6 @@
-import { Component, Input, Output, EventEmitter ,ViewEncapsulation} from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Reservation } from '../../../../models/reservation';
+import { Reservation, ReservationStatus } from '../../../../models/reservation';
 
 @Component({
   selector: 'app-status-modal',
@@ -8,16 +8,18 @@ import { Reservation } from '../../../../models/reservation';
   imports: [CommonModule],
   templateUrl: './status-modal.component.html',
   styleUrls: ['./status-modal.component.css'],
-  encapsulation: ViewEncapsulation.None 
+  encapsulation: ViewEncapsulation.None
 })
-export class StatusModalComponent {
+export class StatusModalComponent implements OnInit {
+
   @Input() reservation!: Reservation;
+
   @Output() close = new EventEmitter<void>();
-  @Output() confirm = new EventEmitter<Reservation['status']>();
+  @Output() confirm = new EventEmitter<ReservationStatus>();
 
-  selectedStatus!: Reservation['status'];
+  selectedStatus!: ReservationStatus;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.selectedStatus = this.reservation.status;
   }
 }
