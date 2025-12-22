@@ -15,7 +15,7 @@ export class DashboardService {
 
   getDashboard(): Observable<DashboardResponse> {
    return this.http.get<DashboardResponse>(this.url);
- }
+  }
   //getDashboard(): Observable<DashboardResponse> {
     //return of(DASHBOARD_MOCK); 
   //}
