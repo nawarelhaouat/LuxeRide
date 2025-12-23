@@ -23,14 +23,14 @@ export const routes: Routes = [
 
   // 🔹 Admin layout
   {
-    path: 'admin',
+    path: '',
     component: SidebarComponent,
     children: [
-      { path: 'dashboard', component: DashboardComponent },
+      { path: 'admin/dashboard', component: DashboardComponent },
 
       // Optionnel : ajouter dashboard pages
-      { path: 'vehicles', component: VehiclesComponent },
-      { path: 'reservations', component: ReservationsComponent },
+      { path: 'admin/vehicles', component: VehiclesComponent },
+      { path: 'admin/reservations', component: ReservationsComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
