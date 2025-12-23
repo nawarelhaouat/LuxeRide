@@ -65,7 +65,7 @@ export class LoginComponent {
       }
      
 
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/admin/dashboard']);
     },
     error: (error: any) => {
       this.loading = false;
