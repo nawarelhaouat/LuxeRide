@@ -26,12 +26,12 @@ export const routes: Routes = [
     path: 'admin',
     component: SidebarComponent,
     children: [
-      { path: 'admin/dashboard', component: DashboardComponent },
+      { path: 'dashboard', component: DashboardComponent },
 
       // Optionnel : ajouter dashboard pages
-      { path: 'admin/vehicles', component: VehiclesComponent },
-      { path: 'admin/reservations', component: ReservationsComponent },
-      { path: '', redirectTo: 'admin/dashboard', pathMatch: 'full' },
+      { path: 'vehicles', component: VehiclesComponent },
+      { path: 'reservations', component: ReservationsComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
 
