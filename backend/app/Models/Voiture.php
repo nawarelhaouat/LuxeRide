@@ -13,6 +13,7 @@ class voiture extends Model
     protected $table = 'voiture';
     protected $primaryKey = 'id_voiture';
     public $timestamps = false;
+    public $incrementing = true;
 
     protected $fillable = [
         'marque',

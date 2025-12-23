@@ -13,8 +13,7 @@ return new class extends Migration
     {
 
         Schema::create('location', function (Blueprint $table) {
-
-            $table->integer('id_location')->primary();
+            $table->increments('id_location');
             $table->dateTime('date_reservation')->nullable();
             $table->date('date_debut')->nullable();
             $table->date('date_fin')->nullable();
@@ -26,19 +25,19 @@ return new class extends Migration
             $table->string('cin_client', 50)->nullable();
             $table->boolean('valide')->nullable();
 
-            $table->integer('id_voiture');
+            $table->unsignedInteger('id_voiture');
             $table->string('id_admin', 50);
 
             // Foreign keys
             $table->foreign('id_voiture')
-                  ->references('id_voiture')
-                  ->on('voiture')
-                  ->onDelete('cascade');
+                ->references('id_voiture')
+                ->on('voiture')
+                ->onDelete('cascade');
 
             $table->foreign('id_admin')
-                  ->references('id_admin')
-                  ->on('admin')
-                  ->onDelete('cascade');
+                ->references('id_admin')
+                ->on('admin')
+                ->onDelete('cascade');
         });
     }
 

@@ -2,45 +2,34 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Location;
-use App\Models\Voiture;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 
-use App\Models\Admin;
-
-
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Location>
- */
 class LocationFactory extends Factory
 {
     protected $model = Location::class;
 
     public function definition(): array
     {
-        // On utilise ta factory Voiture existante
-        $voiture = Voiture::factory()->create([
-            
-        ]);
+        $dateDebut = $this->faker->dateTimeBetween('-1 month', '+1 month');
+        $dateFin   = (clone $dateDebut)->modify('+' . rand(1, 14) . ' days');
 
         return [
-            'id_location'       => $this->faker->unique()->numberBetween(1, 99999),
-            'date_reservation'  => now(),
-            'date_debut'        => now()->addDay(),
-            'date_fin'          => now()->addDays(3),
-            'montant_total'     => $this->faker->numberBetween(500, 5000),
-
-            'nom_client'        => $this->faker->firstName(),
-            'prenom_client'     => $this->faker->lastName(),
-            'telephone_client'  => '06' . $this->faker->numberBetween(10000000, 99999999),
+            'id_location'       => $this->faker->unique()->numberBetween(1000, 9999),
+            'date_reservation'  => $this->faker->dateTimeBetween('-2 months', 'now'),
+            'date_debut'        => $dateDebut->format('Y-m-d'),
+            'date_fin'          => $dateFin->format('Y-m-d'),
+            'montant_total'     => $this->faker->randomFloat(2, 500, 8000),
+            'nom_client'        => $this->faker->lastName(),
+            'prenom_client'     => $this->faker->firstName(),
+            'telephone_client' => $this->faker->phoneNumber(),
             'email_client'      => $this->faker->safeEmail(),
             'cin_client'        => strtoupper($this->faker->bothify('??######')),
+            'valide'            => $this->faker->boolean(),
 
-            'valide'            => false,
-
-            // Foreign keys
-            'id_admin'   => Admin::factory(),
-            'id_voiture' => Voiture::factory(),
+            'id_voiture'        => DB::table('voiture')->inRandomOrder()->value('id_voiture'),
+            'id_admin'          => DB::table('admin')->inRandomOrder()->value('id_admin'),
         ];
     }
 }

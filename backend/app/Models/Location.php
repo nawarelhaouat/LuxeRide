@@ -2,14 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Database\Factories\VoitureFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
 
 class Location extends Model
 {
     use HasFactory;
 
     // Nom de la table
+
+    use HasFactory;
+
     protected $table = 'location';
 
     // Clé primaire personnalisée

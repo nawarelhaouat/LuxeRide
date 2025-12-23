@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('voiture', function (Blueprint $table) {
 
-            $table->integer('id_voiture')->primary();
+            $table->increments('id_voiture');
             $table->string('marque', 50);
             $table->string('modele', 50);
             $table->string('immatriculation', 50);
             $table->decimal('prix_par_jour', 15, 2);
-            $table->string('image', 50)->nullable();
+            $table->string('image', 255)->nullable();
             $table->enum('statut', ['disponible', 'loue', 'en_maintenance']);
             $table->dateTime('date_ajout')->nullable();
             $table->string('id_admin', 50);

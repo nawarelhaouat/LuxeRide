@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Location;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class LocationService
 {
@@ -85,5 +86,15 @@ class LocationService
             'labels' => $labels,
             'values' => $values
         ];
+    }
+
+    public function mostRentedCarIds()
+    {
+        return Location::select('id_voiture', DB::raw('COUNT(*) as nb_locations'))
+            ->where('date_reservation', '>=', now()->subMonths(2))
+            ->groupBy('id_voiture')
+            ->orderByDesc('nb_locations')
+            ->limit(5)
+            ->pluck('id_voiture');
     }
 }

@@ -14,7 +14,6 @@ class LocationSeeder extends Seeder
     {
         DB::table('location')->insert([
             [
-                'id_location'      => 1,
                 'date_reservation' => now(),
                 'date_debut'       => '2025-01-05',
                 'date_fin'         => '2025-01-10',
@@ -30,7 +29,6 @@ class LocationSeeder extends Seeder
             ],
 
             [
-                'id_location'      => 2,
                 'date_reservation' => now(),
                 'date_debut'       => '2025-02-01',
                 'date_fin'         => '2025-02-03',
