@@ -23,7 +23,7 @@ export const routes: Routes = [
 
   // 🔹 Admin layout
   {
-    path: 'admin',
+    path: '',
     component: SidebarComponent,
     children: [
       { path: 'admin/dashboard', component: DashboardComponent },

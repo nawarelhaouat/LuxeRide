@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ReservationClientService } from '../../services/reservation-client.service';
 
 // ✅ IMPORT DES MODALS
@@ -18,7 +18,8 @@ import { ReservationSuccessComponent } from './modals/reservation-success/reserv
     CommonModule,
     FormsModule,
     PaymentUnavailableComponent,
-    ReservationSuccessComponent
+    ReservationSuccessComponent,
+    NavbarComponent
   ],
 
   templateUrl: './reservation-client.component.html',

@@ -1,15 +1,25 @@
-<div class="overlay">
-  <div class="modal success">
-    <div class="icon success">✔</div>
+<div class="rs-backdrop" (click)="close.emit()">
+  <div class="rs-card" (click)="$event.stopPropagation()">
 
-    <h2>Votre réservation a été confirmée</h2>
-    <p>Merci pour votre confiance.</p>
+    <div class="rs-icon-wrap">
+      <div class="rs-icon">
+        <span>✓</span>
+      </div>
+    </div>
 
-    <p class="note">
-      Un email de confirmation a été envoyé.<br>
-      Veuillez apporter votre CIN lors du retrait.
+    <h2 class="rs-title">Votre réservation a été confirmée</h2>
+    <p class="rs-subtitle">Merci pour votre confiance.</p>
+
+    <p class="rs-desc">
+      Un email de confirmation de paiement a été envoyé.
     </p>
 
-    <button (click)="close.emit()">OK</button>
+    <div class="rs-note">
+      <span class="rs-note-i">i</span>
+      <span>Veuillez apporter votre CIN lors du retrait du véhicule.</span>
+    </div>
+
+    <button type="button" class="rs-btn" (click)="close.emit()">OK</button>
+
   </div>
 </div>

@@ -1,117 +1,350 @@
+/* ===== ESPACE NAVBAR ===== */
+.nav-spacer {
+  height: 68px;
+}
+
+/* ===== PAGE ===== */
 .reservation-page {
-  padding: 40px;
+  padding: 40px 16px 60px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  min-height: 100vh;
+
   display: flex;
   flex-direction: column;
   gap: 40px;
+  align-items: center;
+
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #1f2937;
+}
+
+/* conteneur largeur fixe */
+.reservation-header,
+.form-card {
+  width: min(1200px, 100%);
 }
 
 /* ===== HEADER ===== */
 .reservation-header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 400px; /* un peu plus large et stable */
   gap: 40px;
-  background: white;
-  border-radius: 24px;
-  padding: 30px;
+  align-items: start;
 }
 
-/* Image */
+/* ===== IMAGE ===== */
 .vehicle-image {
-  width: 50%;
-  text-align: center;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px;
+
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.07);
 }
 
 .vehicle-image img {
-  max-width: 100%;
+  width: min(560px, 100%);
   height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 18px rgba(0,0,0,.12));
 }
 
 .arrows {
-  margin-top: 10px;
-  color: #b08b57;
-  font-size: 24px;
+  margin-top: 16px;
+  color: #91855A;
+  font-size: 26px;
+  letter-spacing: 12px;
+  font-weight: 700;
 }
 
-/* Résumé */
+/* ===== RÉSUMÉ ===== */
 .summary-card {
-  width: 50%;
-  padding: 20px 30px;
+  background: #fff;
+  border-radius: 18px;
+  padding: 26px;
+
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.07);
+}
+
+.summary-card h2 {
+  font-size: 18px;
+  font-weight: 800;
+  text-align: center;
+  color: #111827;
+
+  margin: 0 0 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Ligne Marque / Modèle */
+.summary-card p {
+  margin: 10px 0;
+  font-size: 14px;
+  color: rgba(0, 18, 13, 0.65);
+
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .summary-card span {
-  color: #888;
+  color: rgba(25, 80, 66, 0.6);
+  min-width: 120px;
+  font-weight: 600;
 }
 
+/* séparateurs */
+.summary-card hr {
+  border: none;
+  border-top: 1px solid #f1f1f1;
+  margin: 18px 0;
+}
+
+/* Lignes prix/jours */
 .summary-card .row {
   display: flex;
   justify-content: space-between;
-  margin: 8px 0;
+  align-items: center;
+
+  margin: 10px 0;
+  font-size: 14px;
+  color: rgba(0, 18, 13, 0.65);
 }
 
+.summary-card strong {
+  color: #111827;
+  font-weight: 800;
+}
+
+/* Total */
 .summary-card h3 {
-  margin-top: 20px;
-  color: #b08b57;
+  margin-top: 18px;
+  text-align: center;
+  font-size: 22px;
+  color: #91855A;
+  font-weight: 900;
 }
 
 /* ===== FORM ===== */
 .form-card {
-  background: white;
-  border-radius: 24px;
-  padding: 30px;
-}
-.form-card h2 {
-  margin-top: 40px;      /* espace AVANT le titre */
-  margin-bottom: 20px;   /* espace APRÈS le titre */
+  background: #fff;
+  border-radius: 18px;
+  padding: 32px;
+
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.07);
 }
 
+.form-card h2 {
+  margin: 24px 0 16px;
+  font-size: 16px;
+  font-weight: 900;
+  color: #111827;
+
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Inputs */
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
 }
 
 input {
-  padding: 12px;
+  width: 100%;
+  padding: 14px 16px;
   border-radius: 12px;
-  border: 1px solid #ddd;
+
+  border: 1px solid #e5e7eb;
+  background: #fafafa;
+
+  font-size: 14px;
+  color: #111827;
+  transition: all 0.25s ease;
 }
 
+input::placeholder {
+  color: #9CA3AF;
+}
+
+input:focus {
+  border-color: #91855A;
+  outline: none;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(145, 133, 90, 0.18);
+}
+
+/* ===== Paiement ===== */
 .payment-boxes {
-  display: flex;
-  gap: 20px;
-  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 14px;
 }
 
 .payment-box {
-  flex: 1;
-  padding: 20px;
-  border-radius: 16px;
-  border: 2px solid #ddd;
+  border: 2px solid #eee;
+  border-radius: 18px;
+  padding: 22px;
+
   cursor: pointer;
+  transition: all 0.25s ease;
+  background: #fafafa;
+}
+
+.payment-box:hover {
+  border-color: rgba(145, 133, 90, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
 }
 
 .payment-box.active {
-  border-color: #8b0000;
+  border-color: #91855A;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(145, 133, 90, 0.16);
+  position: relative;
 }
 
-/* Actions */
-.actions {
-  margin-top: 30px;
+.payment-box.active::before {
+  content: "✓";
+  position: absolute;
+  top: -12px;
+  right: -12px;
+
+  background: #91855A;
+  color: #fff;
+
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 900;
+}
+
+.payment-box h3 {
+  font-size: 16px;
+  font-weight: 900;
+  margin: 0 0 8px;
+  color: #111827;
+}
+
+.payment-box p {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(17, 24, 39, 0.65);
+  line-height: 1.5;
+}
+
+/* ===== Actions ===== */
+.actions {
+  margin-top: 34px;
+  display: flex;
+  justify-content: center;
+  gap: 28px;
 }
 
 .btn-outline {
-  padding: 10px 25px;
-  border-radius: 20px;
-  border: 1px solid #aaa;
+  padding: 12px 40px;
+  border-radius: 999px;
+  border: 2px solid #91855A;
   background: transparent;
+
+  color: #91855A;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+.btn-outline:hover {
+  background: #91855A;
+  color: #fff;
+  transform: translateY(-2px);
 }
 
 .btn-primary {
-  padding: 10px 30px;
-  border-radius: 20px;
-  background: #8b0000;
-  color: white;
+  padding: 12px 50px;
+  border-radius: 999px;
+
+  background: #8b0000; /* ton rouge */
+  color: #fff;
+
   border: none;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+  box-shadow: 0 10px 20px rgba(139, 0, 0, 0.18);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px rgba(139, 0, 0, 0.22);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .reservation-header {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-boxes {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .btn-outline,
+  .btn-primary {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reservation-page {
+    padding: 20px 12px 40px;
+    gap: 28px;
+  }
+
+  .arrows {
+    font-size: 22px;
+    letter-spacing: 8px;
+  }
+
+  .vehicle-image {
+    padding: 18px;
+  }
+
+  .summary-card,
+  .form-card {
+    padding: 20px;
+  }
 }
