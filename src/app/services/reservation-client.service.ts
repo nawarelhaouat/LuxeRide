@@ -29,6 +29,7 @@ export class ReservationClientService {
     const start = new Date(startDate);
     const end = new Date(endDate);
 
+    // 🟩 Version propre et identique
     const diffTime = end.getTime() - start.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
@@ -43,11 +44,7 @@ export class ReservationClientService {
      PARTIE 2️⃣ — APPELS BACKEND LARAVEL
      ===================================================== */
 
-  /**
-   * 🔹 Créer une réservation (POST)
-   * Cette route doit exister côté Laravel :
-   * POST /api/locations
-   */
+  /** Créer une réservation (POST) */
   createReservation(data: {
     nom_client: string;
     prenom_client: string;
@@ -62,27 +59,17 @@ export class ReservationClientService {
     return this.http.post(this.API_URL, data);
   }
 
-  /**
-   * 🔹 Liste des locations (index)
-   * GET /api/locations
-   */
+  /** Liste des locations (GET) */
   getAllLocations(): Observable<any> {
     return this.http.get(this.API_URL);
   }
 
-  /**
-   * 🔹 Détail d’une location
-   * GET /api/locations/{id}
-   * ⚠️ Le backend renvoie un TABLEAU avec 1 objet
-   */
+  /** Détails d'une location (GET /id) */
   getLocationById(id: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.API_URL}/${id}`);
   }
 
-  /**
-   * 🔹 Mise à jour du statut
-   * PUT /api/locations/{id}
-   */
+  /** Mise à jour du statut */
   updateStatus(
     id: number,
     statut: 'valide' | 'non valide'

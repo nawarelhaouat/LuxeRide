@@ -1,26 +1,78 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SelectedVehicleService } from '../../services/selected-vehicle.service';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { ReservationClientService } from '../../services/reservation-client.service';
+
+// ✅ IMPORT DES MODALS
+import { PaymentUnavailableComponent } from './modals/payment-unavailable/payment-unavailable.component';
+import { ReservationSuccessComponent } from './modals/reservation-success/reservation-success.component';
 
 @Component({
   selector: 'app-reservation-client',
   standalone: true,
+
+  // ✅ OBLIGATOIRE EN STANDALONE
+  imports: [
+    CommonModule,
+    FormsModule,
+    PaymentUnavailableComponent,
+    ReservationSuccessComponent,
+    NavbarComponent
+  ],
+
   templateUrl: './reservation-client.component.html',
+  styleUrls: ['./reservation-client.component.css']
 })
-export class ReservationClientComponent implements OnInit {
-  vehicleId?: string;
+export class ReservationClientComponent {
 
-  constructor(private router: Router, private selectedVehicle: SelectedVehicleService) {}
+  pricePerDay = 0;
 
-  ngOnInit(): void {
-    const id = this.selectedVehicle.get();
-    if (!id) {
-      // si user ouvre la page direct
-      this.router.navigate(['/vehicules-client']);
+  startDate!: string;
+  endDate!: string;
+  numberOfDays = 0;
+  totalPrice = 0;
+
+  paymentMethod: 'ONLINE' | 'AGENCY' | null = null;
+
+  showPaymentUnavailable = false;
+  showReservationSuccess = false;
+
+  constructor(
+    private reservationClientService: ReservationClientService,
+    private router: Router
+  ) {
+    this.pricePerDay = this.reservationClientService.getPricePerDay();
+  }
+
+  calculatePrice(): void {
+    this.numberOfDays =
+      this.reservationClientService.calculateNumberOfDays(
+        this.startDate,
+        this.endDate
+      );
+
+    this.totalPrice =
+      this.reservationClientService.calculateTotalPrice(this.numberOfDays);
+  }
+
+  selectPayment(method: 'ONLINE' | 'AGENCY'): void {
+    this.paymentMethod = method;
+  }
+
+  reserve(): void {
+    if (this.paymentMethod === 'ONLINE') {
+      this.showPaymentUnavailable = true;
       return;
     }
-    this.vehicleId = id;
 
-    // Ici tu peux appeler backend GET /vehicles/:id si tu veux afficher détails
+    if (this.paymentMethod === 'AGENCY') {
+      this.showReservationSuccess = true;
+    }
+  }
+
+  goBack(): void {
+    this.router.navigate(['/vehicles-client']);
   }
 }
