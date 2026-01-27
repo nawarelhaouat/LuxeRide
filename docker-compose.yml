@@ -15,11 +15,8 @@ services:
     container_name: laravel_app
     ports:
       - "8000:80"
-    environment:
-      DB_HOST: mysql
-      DB_DATABASE: laravel_db
-      DB_USERNAME: laravel_user
-      DB_PASSWORD: laravel_pass
+    env_file:
+      - ./backend/.env
     depends_on:
       - mysql
 
@@ -32,7 +29,8 @@ services:
       MYSQL_DATABASE: laravel_db
       MYSQL_USER: laravel_user
       MYSQL_PASSWORD: laravel_pass
-    ports:
-      - "3306:3306"
     volumes:
-      - ./mysql_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
