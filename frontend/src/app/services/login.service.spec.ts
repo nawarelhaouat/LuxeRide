@@ -1,12 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { LoginService } from './login.service';
+import { environment } from '../../environments/environment';
 
 describe('LoginService', () => {
   let service: LoginService;
   let httpMock: HttpTestingController;
 
-  const apiUrl = 'http://127.0.0.1:8000/api/admin';
+  const apiUrl = environment.apiUrl;
 
   beforeEach(() => {
     TestBed.configureTestingModule({

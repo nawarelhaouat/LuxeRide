@@ -1,0 +1,26 @@
+<h2>Réservations</h2>
+<p class="subtitle">Liste complète des réservations effectuées</p>
+
+<app-reservation-filters
+  (filter)="onFilter($event)">
+</app-reservation-filters>
+
+
+<app-reservation-table
+  [reservations]="reservations"
+  (changeStatus)="openStatusModal($event)"
+  (viewDetails)="openDetailsModal($event)">
+</app-reservation-table>
+
+<app-status-modal
+  *ngIf="showStatusModal"
+  [reservation]="selectedReservation!"
+  (close)="showStatusModal = false"
+  (confirm)="updateStatus($event)">
+</app-status-modal>
+
+<app-details-modal
+  *ngIf="showDetailsModal"
+  [reservation]="selectedReservation!"
+  (close)="showDetailsModal = false">
+</app-details-modal>

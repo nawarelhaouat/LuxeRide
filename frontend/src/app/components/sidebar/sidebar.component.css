@@ -1,0 +1,494 @@
+/* -------------------------------
+   FOND GLOBAL (extérieur du layout)
+----------------------------------*/
+body {
+  margin: 0;
+  background-color: #f6f7f5;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* -------------------------------
+   CONTENEUR GLOBAL (sidenav + contenu)
+----------------------------------*/
+.layout-container {
+  height: 100vh;
+  background-color: #ffffff;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+/* Supprimer les arrondis Angular Material */
+.mat-sidenav-container,
+.mat-drawer-container,
+.mat-drawer-content,
+.mat-sidenav,
+.mat-drawer-inner-container {
+  border-radius: 0 !important;
+}
+
+/* -------------------------------
+   SIDEBAR
+----------------------------------*/
+.side-nav {
+  background-color: #ffffff;
+  padding: 0;
+  border-right: 1px solid #e5e7eb;
+  height: 100vh;
+}
+
+.side-nav .mat-drawer-inner-container {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 80px;
+}
+
+/* -------------------------------
+   LOGO + TEXTE
+----------------------------------*/
+.brand {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 24px 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  gap: 12px;
+}
+
+.brand-logo {
+  width: 110px;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-logo img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  image-rendering: crisp-edges;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.brand-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #195042;
+}
+
+.brand-subtitle {
+  font-size: 12px;
+  font-weight: 500;
+  color: #91855a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* -------------------------------
+   MENU NAVIGATION
+----------------------------------*/
+.menu-list {
+  padding: 0 16px;
+}
+
+.menu-item {
+  border-radius: 24px;
+  margin-bottom: 8px;
+  transition: all 0.2s ease;
+  height: 48px;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.menu-item mat-icon,
+.menu-item .menu-icon {
+  margin-right: 12px;
+  font-size: 22px;
+  color: #195042;
+  vertical-align: middle;
+  height: 24px;
+  width: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-item span,
+.menu-item .menu-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: #195042;
+  vertical-align: middle;
+}
+
+.menu-item.active {
+  background-color: #f2f6ef;
+}
+
+.menu-item:hover {
+  background-color: #A3864A;
+}
+
+.menu-item:hover mat-icon,
+.menu-item:hover span,
+.menu-item:hover .menu-icon,
+.menu-item:hover .menu-text {
+  color: #ffffff;
+}
+
+.menu-item.active:hover {
+  background-color: #A3864A;
+}
+
+.menu-item.active:hover mat-icon,
+.menu-item.active:hover span,
+.menu-item.active:hover .menu-icon,
+.menu-item.active:hover .menu-text {
+  color: #ffffff;
+}
+
+/* -------------------------------
+   BOUTON DÉCONNEXION
+----------------------------------*/
+.logout-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16px;
+  border-top: 1px solid #e5e7eb;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+}
+
+.logout-button .mat-mdc-button-touch-target {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  height: auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.logout-button {
+  width: 100%;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start;
+  padding-left: 12px;
+}
+
+.logout-button:hover {
+  background-color: #A3864A;
+}
+
+.logout-button:hover .logout-icon,
+.logout-button:hover .logout-text {
+  color: #ffffff;
+}
+
+.logout-icon {
+  margin-right: 12px;
+  color: #195042;
+}
+
+.logout-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: #195042;
+}
+
+/* -------------------------------
+   CONTENU PRINCIPAL
+----------------------------------*/
+.main-content {
+  display: flex;
+  flex-direction: column;
+  background-color: #f6f7f5;
+  min-height: 0;
+}
+
+.top-toolbar {
+  background-color: #ffffff;
+  color: #1f2933;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  height: 64px;
+  padding: 0 16px;
+  flex: 0 0 auto;
+}
+
+.menu-toggle-button {
+  margin-right: 12px;
+  color: #195042;
+}
+
+.menu-toggle-button:hover {
+  background-color: #f2f6ef;
+}
+
+.flex-spacer {
+  flex: 1 1 auto;
+}
+
+.top-toolbar button[mat-icon-button] {
+  color: #195042;
+}
+
+.top-toolbar button[mat-icon-button]:hover {
+  background-color: #a3854add;
+  border-radius: 13px;
+}
+
+.content-wrapper {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 24px;
+  overflow: auto;
+  background-color: #f6f7f5;
+}
+
+/* ================= NOTIFICATIONS ================= */
+
+.notification-button {
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.notification-button:hover {
+  transform: scale(1.05);
+}
+
+.notification-button .mat-badge-content {
+  top: 6px !important;
+  right: 6px !important;
+  font-size: 11px;
+  height: 18px;
+  min-width: 18px;
+  line-height: 18px;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* ================= MENU DES NOTIFICATIONS ================= */
+
+.notif-panel {
+  width: 500px;
+  max-width: 100%;
+  border-radius: 0 0 12px 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.notif-header {
+  background: linear-gradient(135deg, #195042 0%, #18463b 100%);
+  color: #fff;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notif-title {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.notif-sub {
+  font-size: 12px;
+  opacity: 0.85;
+  margin-top: 2px;
+}
+
+.notif-list {
+  max-height: 400px;
+  overflow-y: auto;
+  background: #faf9f6;
+  padding: 12px;
+}
+
+.notif-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notif-list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.notif-list::-webkit-scrollbar-thumb {
+  background: #A3864A;
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+.notif-list::-webkit-scrollbar-thumb:hover {
+  background: #8b703d;
+}
+
+.notif-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #fff;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.notif-item:hover {
+  transform: translateX(4px);
+  border-left-color: #A3864A;
+  box-shadow: 0 2px 8px rgba(163, 134, 74, 0.15);
+}
+
+.notif-item.read {
+  background: #f8f8f8;
+  opacity: 0.7;
+}
+
+.notif-item.read:hover {
+  background: #A3864A;
+  color: #fff;
+  opacity: 1;
+}
+
+.notif-item.read:hover .notif-text {
+  color: #fff;
+}
+
+.notif-item.read:hover .notif-time {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.notif-item:last-child {
+  margin-bottom: 0;
+}
+
+.notif-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #A3864A;
+  margin-top: 5px;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(163, 134, 74, 0.2);
+  animation: pulse 2s infinite;
+}
+
+.notif-item.read .notif-dot {
+  display: none;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 3px rgba(163, 134, 74, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(163, 134, 74, 0.1);
+  }
+}
+
+.notif-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notif-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2c3e50;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.notif-time {
+  font-size: 12px;
+  color: #A3864A;
+  font-weight: 500;
+}
+
+.empty-notif {
+  text-align: center;
+  font-size: 14px;
+  color: #777;
+  padding: 40px 20px;
+}
+
+.empty-notif::before {
+  content: "🔔";
+  display: block;
+  font-size: 48px;
+  margin-bottom: 12px;
+  opacity: 0.3;
+}
+
+.mark-read-btn {
+  transition: all 0.2s ease;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.mark-read-btn:hover {
+  background: rgba(163, 134, 74, 0.2);
+}
+
+
+
+.mark-read-btn mat-icon {
+  transition: all 0.2s ease;
+}
+
+/* Masquer COMPLÈTEMENT le bouton quand il n'y a pas de notifications non lues */
+.notif-header.no-unread .mark-read-btn {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+/* Enlever l’espace blanc autour du contenu du mat-menu */
+::ng-deep .mat-mdc-menu-content {
+  padding: 0 !important;
+}
+
+/* Forcer le conteneur du menu à ne pas ajouter de marges/padding */
+::ng-deep .mat-mdc-menu-panel {
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 12px !important; /* optionnel */
+}
+
+/* Ton panel doit prendre toute la largeur du menu */
+.notif-panel {
+  display: block;
+  width: 400px;        /* ou 650px etc */
+  margin: 0 !important;
+}  
+.notif-panel{
+  width: 400px;          /* ✅ augmente ici (ex: 650, 750, 800) */
+  max-width: 95vw;       /* ✅ responsive (évite de dépasser l’écran) */
+}
+
+::ng-deep .mat-mdc-menu-panel {
+  max-width: none !important;
+}

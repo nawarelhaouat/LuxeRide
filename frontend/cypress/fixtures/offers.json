@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "brand": "Mercedes",
+    "model": "AMG GT",
+    "pricePerDay": 4000,
+    "imageUrl": "a.png"
+  },
+  {
+    "id": "2",
+    "brand": "BMW",
+    "model": "M4",
+    "pricePerDay": 2500,
+    "imageUrl": "b.png"
+  },
+  {
+    "id": "3",
+    "brand": "Audi",
+    "model": "RS7",
+    "pricePerDay": 2800,
+    "imageUrl": "c.png"
+  }
+]

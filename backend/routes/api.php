@@ -23,7 +23,7 @@ Route::prefix('admin')->group(function () {
             Route::post('/', 'store'); // POST /api/admin/voiture
             Route::put('{id}', 'update'); // PUT /api/admin/voiture/{id}
             Route::delete('{id}', 'destroy'); // DELETE /api/admin/voiture/{id}
-            Route::get('/', 'index'); // GET /api/admin/voiture
+            Route::get('', 'index'); // GET /api/admin/voiture
             Route::get('{id}', 'show'); // GET /api/admin/voiture/{id}
         });
 

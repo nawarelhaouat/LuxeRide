@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
 });
 
@@ -19,3 +19,4 @@ Route::post('/', function (Request $request) {
     // Retourner le lien complet
     return "Image uploadée avec succès ! <a href='" . asset('storage/' . $path) . "'>Voir l'image</a>";
 });
+*/

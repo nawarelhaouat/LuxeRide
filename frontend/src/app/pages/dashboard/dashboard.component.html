@@ -1,0 +1,130 @@
+<!-- Dashboard Content -->
+<div class="dashboard-container" *ngIf="stats as s">
+
+  <!-- Cartes de statistiques -->
+  <div class="stats-grid">
+    
+    <!-- Carte Réservations -->
+    <mat-card class="stat-card">
+      <div class="stat-icon-wrapper reservations">
+        <mat-icon>event_note</mat-icon>
+      </div>
+
+      <div class="stat-trend"
+           [ngClass]="getTrendClass(stats.reservations.trend)">
+        <mat-icon>
+          {{ getTrendIcon(stats.reservations.trend) }}
+        </mat-icon>
+        <span>
+          {{ formatTrend(stats.reservations.trend) }}
+        </span>
+      </div>
+
+      <div class="stat-label">Réservations</div>
+      <div class="stat-value">
+        {{ stats.reservations.value }}
+      </div>
+    </mat-card>
+
+    <!-- Carte Revenus -->
+    <mat-card class="stat-card">
+      <div class="stat-icon-wrapper revenus">
+        <mat-icon>attach_money</mat-icon>
+      </div>
+
+      <div class="stat-trend"
+           [ngClass]="getTrendClass(stats.revenus.trend)">
+        <mat-icon>
+          {{ getTrendIcon(stats.revenus.trend) }}
+        </mat-icon>
+        <span>
+          {{ formatTrend(stats.revenus.trend) }}
+        </span>
+      </div>
+
+      <div class="stat-label">Revenus</div>
+      <div class="stat-value">
+        {{ stats.revenus.value | number }} €
+      </div>
+    </mat-card>
+
+    <!-- Carte Taux d'Utilisation -->
+    <mat-card class="stat-card">
+      <div class="stat-icon-wrapper utilisation">
+        <mat-icon>directions_car</mat-icon>
+      </div>
+
+      <div class="stat-trend"
+           [ngClass]="getTrendClass(stats.tauxUtilisation.trend)">
+        <mat-icon>
+          {{ getTrendIcon(stats.tauxUtilisation.trend) }}
+        </mat-icon>
+        <span>
+          {{ formatTrend(stats.tauxUtilisation.trend) }}
+        </span>
+      </div>
+
+      <div class="stat-label">Taux d'Utilisation</div>
+      <div class="stat-value">
+        {{ stats.tauxUtilisation.value }}%
+      </div>
+    </mat-card>
+
+    <!-- Carte Maintenance -->
+    <mat-card class="stat-card">
+      <div class="stat-icon-wrapper maintenance">
+        <mat-icon>build</mat-icon>
+      </div>
+
+      <div class="stat-trend"
+           [ngClass]="getTrendClass(stats.maintenance.trend)">
+        <mat-icon>
+          {{ getTrendIcon(stats.maintenance.trend) }}
+        </mat-icon>
+        <span>
+          {{ formatTrend(stats.maintenance.trend) }}
+        </span>
+      </div>
+
+      <div class="stat-label">Maintenance</div>
+      <div class="stat-value">
+        {{ stats.maintenance.value }} véhicules
+      </div>
+    </mat-card>
+
+  </div>
+
+  <!-- Charts -->
+<div class="charts-grid">
+
+  <mat-card class="chart-card">
+    <div class="chart-header">
+      <h3>Évolution des Réservations</h3>
+    </div>
+    <div class="chart-content">
+      <canvas #reservationsCanvas></canvas>
+    </div>
+  </mat-card>
+
+  <mat-card class="chart-card">
+    <div class="chart-header">
+      <h3>Taux d'Utilisation par Véhicule</h3>
+    </div>
+    <div class="chart-content">
+      <canvas #utilisationCanvas></canvas>
+    </div>
+  </mat-card>
+
+</div>
+
+<div class="charts-grid-full">
+  <mat-card class="chart-card">
+    <div class="chart-header">
+      <h3>Revenus Mensuels</h3>
+    </div>
+    <div class="chart-content">
+      <canvas #revenusCanvas></canvas>
+    </div>
+  </mat-card>
+</div>
+

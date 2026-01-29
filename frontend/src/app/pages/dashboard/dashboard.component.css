@@ -1,0 +1,274 @@
+/* =====================================================
+  DASHBOARD COMPONENT – CSS FINAL
+  ===================================================== */
+
+/* -----------------------------------------------------
+  GESTION DU FLUX & SCROLL (CORRIGÉ)
+  ----------------------------------------------------- */
+
+/* Le :host permet au contenu de défiler si le dashboard dépasse la hauteur de l'écran. */
+:host {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* CORRECTION : Permet le défilement si le contenu dépasse */
+  overflow: unset; 
+}
+
+/* =====================================================
+  CONTENEUR DASHBOARD
+  ===================================================== */
+.dashboard-container {
+  padding: 24px;
+  background-color: #f6f7f5; /* Couleur de fond général */
+
+  height: auto;
+  min-height: unset;
+  /* CORRECTION : Permet au contenu de déborder et au scroll de fonctionner */
+  overflow: auto;
+}
+
+/* =====================================================
+  CARTES STATISTIQUES (STAT-CARDS)
+  ===================================================== */
+.stats-grid {
+  display: grid;
+  /* Grille adaptative, minimum 250px par colonne */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  position: relative;
+  padding: 24px !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  height: 100%;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Icône Wrapper */
+.stat-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.stat-icon-wrapper mat-icon {
+  font-size: 26px;
+  width: 24px;
+  height: 24px;
+  /* Couleur de l'icône : #195042 pour l'image initiale, ou la couleur de fond de l'icône si l'icône est blanche */
+  color: #195042; 
+}
+
+/* Couleur de fond des icônes (selon votre code fourni: #e4dac58b) */
+.stat-icon-wrapper.reservations,
+.stat-icon-wrapper.revenus,
+.stat-icon-wrapper.utilisation,
+.stat-icon-wrapper.maintenance {
+  background-color: #e4dac58b; 
+}
+
+/* Tendance (en haut à droite) */
+.stat-trend {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.stat-trend mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.stat-trend.positive {
+  color: #A3864A; /* Couleur positive fournie dans votre CSS */
+}
+
+.stat-trend.negative {
+  color: #ef4444; /* Couleur négative fournie dans votre CSS */
+}
+
+/* Texte */
+.stat-label {
+  font-size: 14px;
+  color: #A3864A; /* Couleur fournie dans votre CSS */
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 500; /* Plus gras pour mieux ressortir */
+  color: #02231c;
+  line-height: 1;
+}
+
+/* =====================================================
+  GRAPHIQUES (CHART CARDS)
+  ===================================================== */
+.charts-grid {
+  display: grid;
+  /* Deux colonnes, minimum 450px chacune */
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+/* Grille sur toute la largeur (pour le graphique Revenus Mensuels) */
+.charts-grid-full {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.charts-grid-full .chart-card {
+  width: 100%;
+}
+
+.chart-card {
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  overflow: hidden;
+}
+
+.chart-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.chart-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #02231c;
+
+}
+
+.chart-content {
+  padding: 24px;
+  height: 350px; /* Donne une hauteur fixe pour le canvas */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+canvas {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+
+/* Styles spécifiques pour le graphique circulaire (Taux d'Utilisation) */
+.chart-utilisation-content {
+  flex-direction: column;
+  height: auto; /* Laisser la hauteur s'adapter au contenu */
+  min-height: 350px;
+  padding: 24px 24px 10px 24px; 
+}
+
+#utilisationChart {
+  /* Taille maximale pour le graphique */
+  max-height: 250px; 
+}
+
+.pie-labels {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 10px 0;
+  margin-top: auto;
+}
+
+.pie-label-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+/* Couleurs des points de la légende circulaire (basé sur l'image) */
+.dot.disponible {
+  background-color: #8b806d; /* Marron clair */
+}
+
+.dot.loue {
+  background-color: #195042; /* Vert foncé */
+}
+
+.dot.maintenance {
+  background-color: #e5e5e5; /* Gris clair */
+}
+
+
+/* =====================================================
+  RESPONSIVE
+  ===================================================== */
+@media (max-width: 1200px) {
+  /* Les deux graphiques du haut passent sur une seule colonne */
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 16px;
+  }
+
+  /* Les cartes stats passent sur une seule colonne */
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    padding: 20px !important;
+  }
+
+  .chart-content {
+    height: 300px;
+  }
+  
+  /* Ajustement pour la légende circulaire sur mobile */
+  .pie-labels {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+.chart-content canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}

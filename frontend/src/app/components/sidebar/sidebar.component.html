@@ -1,0 +1,124 @@
+<mat-sidenav-container class="layout-container">
+  <mat-sidenav
+    #sidenav
+    class="side-nav"
+    mode="side"
+    opened
+    [style.width]="'260px'"
+  >
+    <div class="brand">
+      <div class="brand-logo">
+        <img src="assets/images/logo.png" alt="Logo">
+      </div>
+
+      <div class="brand-text">
+        <div class="brand-title">Location</div>
+        <div class="brand-subtitle">Premium</div>
+      </div>
+    </div>
+    <mat-nav-list class="menu-list">
+      <a mat-list-item class="menu-item"
+         routerLink="admin/dashboard"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }">
+        <mat-icon>space_dashboard</mat-icon>
+        <span>Tableau de Bord</span>
+      </a>
+      <a mat-list-item class="menu-item"
+         routerLink="admin/vehicles"
+         routerLinkActive="active">
+        <mat-icon>directions_car</mat-icon>
+        <span>Véhicules</span>
+      </a>
+      <a mat-list-item class="menu-item"
+         routerLink="admin/reservations"
+         routerLinkActive="active">
+        <mat-icon>event_note</mat-icon>
+        <span>Réservations</span>
+      </a>
+    </mat-nav-list>
+
+    <div class="logout-container">
+      <button mat-button class="logout-button" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Déconnexion</span>
+      </button>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="main-content">
+
+    <mat-toolbar class="top-toolbar">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <span class="flex-spacer"></span>
+
+      <!-- 🔔 NOTIFICATIONS -->
+      <button
+        mat-icon-button
+        class="notification-button"
+        [matMenuTriggerFor]="notifMenu"
+        [matBadge]="unreadCount"
+        [matBadgeHidden]="unreadCount === 0"
+        matBadgeColor="warn"
+        matBadgeOverlap="true"
+      >
+        <mat-icon>notifications_none</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <!-- ===== MENU NOTIFICATIONS ===== -->
+    <mat-menu
+      #notifMenu="matMenu"
+      xPosition="before"
+      yPosition="below"
+      [overlapTrigger]="false"
+    >
+      <div class="notif-panel" (click)="$event.stopPropagation()">
+
+        <div class="notif-header">
+          <div>
+            <div class="notif-title">Notifications</div>
+            <div class="notif-sub">{{ unreadCount }} non lue(s)</div>
+          </div>
+
+          <button
+            mat-button
+            (click)="markAllAsRead($event)"
+            [disabled]="unreadCount === 0"
+          >
+            Marquer tout lu
+          </button>
+        </div>
+
+        <div class="notif-list">
+
+          <div class="notif-item" *ngFor="let n of unreadNotifications; let i = index">
+            <div class="notif-dot"></div>
+
+            <div>
+              <div class="notif-text">{{ n.text }}</div>
+              <div class="notif-time">{{ n.time }}</div>
+            </div>
+
+            <button mat-button (click)="markAsRead(i, $event)">
+              <mat-icon>done_all</mat-icon>
+            </button>
+          </div>
+
+          <div class="empty-notif" *ngIf="unreadNotifications.length === 0">
+            Aucune notification
+          </div>
+
+        </div>
+      </div>
+    </mat-menu>
+
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

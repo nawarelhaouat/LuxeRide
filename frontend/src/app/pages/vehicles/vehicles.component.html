@@ -1,0 +1,66 @@
+<div class="page">
+
+  <h1 class="title">Gestion des Véhicules</h1>
+  <p class="subtitle">Gérez votre flotte de véhicules</p>
+
+  <!-- FILTRES + ADD BUTTON -->
+  <div class="toolbar">
+
+    <button
+      class="filter-btn"
+      [class.active]="status === 'all'"
+      (click)="filter('all')">
+      Tous
+    </button>
+
+    <button
+      class="filter-btn"
+      [class.active]="status === 'available'"
+      (click)="filter('disponible')">
+      Disponible
+    </button>
+
+    <button
+      class="filter-btn"
+      [class.active]="status === 'rented'"
+      (click)="filter('loue')">
+      Loué
+    </button>
+
+    <button
+      class="filter-btn"
+      [class.active]="status === 'maintenance'"
+      (click)="filter('en_maintenance')">
+      Maintenance
+    </button>
+
+    <button class="add-btn" (click)="openAddModal()">
+      <span class="plus">+</span> Ajouter un Véhicule
+    </button>
+  </div>
+
+  <!-- TABLE -->
+  <app-vehicle-table
+    [vehicles]="filteredVehicles"
+    (edit)="openEditModal($event)"
+    (delete)="openDeleteModal($event)"
+  ></app-vehicle-table>
+
+  <!-- MODALS -->
+<app-vehicle-modal
+  [open]="showFormModal"
+  [vehicle]="selectedVehicle"
+  (save)="saveVehicle($event)"
+  (close)="showFormModal = false">
+</app-vehicle-modal>
+
+<app-delete-modal
+  [open]="showDeleteModal"
+  [vehicle]="vehicleToDelete"
+  (confirm)="confirmDelete()"
+  (cancel)="showDeleteModal = false">
+</app-delete-modal>
+
+
+
+</div>

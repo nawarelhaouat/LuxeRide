@@ -85,6 +85,7 @@ class VoitureService
 
     public function create(array $data): Voiture
     {
+        
         return Voiture::create($data);
     }
 

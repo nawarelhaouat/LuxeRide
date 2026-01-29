@@ -1,0 +1,21 @@
+.badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.disponible {
+  background: #d5f5df;
+  color: #0c7c43;
+}
+
+.loué {
+  background: #e2e7ff;
+  color: #4a5ddb;
+}
+
+.maintenance {
+  background: #ffe6ba;
+  color: #b5730c;
+}
