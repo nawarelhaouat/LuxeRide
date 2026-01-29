@@ -19,7 +19,7 @@ export const routes: Routes = [
   { path: 'reservation-client', component: ReservationClientComponent },
 
   // 🔹 Auth
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent },
 
   // 🔹 Admin layout
   {
@@ -27,17 +27,15 @@ export const routes: Routes = [
     component: SidebarComponent,
     children: [
       { path: 'admin/dashboard', component: DashboardComponent },
-
-      // Optionnel : ajouter dashboard pages
       { path: 'admin/vehicles', component: VehiclesComponent },
       { path: 'admin/reservations', component: ReservationsComponent },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
 
   // 🔹 Default redirect
-  { path: '', redirectTo: '/client', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 
   // 🔹 Fallback
-  { path: '**', redirectTo: '/client' },
+  { path: '**', redirectTo: '/login' },
 ];
+

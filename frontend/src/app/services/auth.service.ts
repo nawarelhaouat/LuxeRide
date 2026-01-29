@@ -9,6 +9,6 @@ export class AuthService {
     
     localStorage.clear();
 
-this.router.navigate(['/login'], { replaceUrl: true });
+this.router.navigate(['/'], { replaceUrl: true });
   }
 }
