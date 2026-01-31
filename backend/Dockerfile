@@ -19,4 +19,4 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 EXPOSE 80
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=80"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
