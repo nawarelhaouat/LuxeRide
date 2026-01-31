@@ -1,0 +1,156 @@
+name: CI/CD Pipeline (Laravel + Angular → Docker Hub → EC2)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - dev
+      - main
+
+jobs:
+  # =======================
+  # BACKEND CI (Laravel)
+  # =======================
+  backend-ci:
+    name: Backend CI (Laravel)
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_DATABASE: test_db
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: pdo_mysql, mbstring
+
+      - name: Install dependencies
+        working-directory: backend
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Prepare environment
+        working-directory: backend
+        run: |
+          cp .env.example .env
+          sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
+          sed -i 's/DB_DATABASE=.*/DB_DATABASE=test_db/' .env
+          sed -i 's/DB_USERNAME=.*/DB_USERNAME=root/' .env
+          sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=root/' .env
+
+      - name: Generate app key
+        working-directory: backend
+        run: php artisan key:generate
+
+      - name: Wait for MySQL
+        run: |
+          until mysqladmin ping -h 127.0.0.1 -u root -proot --silent; do
+            sleep 2
+          done
+
+      - name: Run migrations
+        working-directory: backend
+        run: php artisan migrate --force
+
+      - name: Run backend tests
+        working-directory: backend
+        run: php artisan test
+
+  # =======================
+  # FRONTEND CI (Angular)
+  # =======================
+  frontend-ci:
+    name: Frontend CI (Angular)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm install
+
+      - name: Build Angular app
+        working-directory: frontend
+        run: npm run build
+
+      - name: Lint Angular code
+        working-directory: frontend
+        run: npm run lint || echo "No lint configured"
+
+  # =======================
+  # DOCKER BUILD & PUSH
+  # =======================
+  docker-build-push:
+    name: Build & Push Docker Images
+    runs-on: ubuntu-latest
+    needs: [backend-ci, frontend-ci]  # Wait for CI jobs to pass
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Login to Docker Hub
+      - name: Docker Hub Login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Build & push frontend image
+      - name: Build & Push Frontend
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest ./frontend
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
+
+      # Build & push backend image
+      - name: Build & Push Backend
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest ./backend
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest
+
+  # =======================
+  # DEPLOY TO EC2
+  # =======================
+  deploy-ec2:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+    needs: docker-build-push   # Deploy only if Docker images were successfully pushed
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /home/ubuntu/project
+            # Pull latest images from Docker Hub
+            docker compose pull
+            # Stop old containers and start new ones
+            docker compose down
+            docker compose up -d
+            # Run Laravel migrations
+            docker exec laravel_app php artisan migrate --force
+            # Optimize Laravel
+            docker exec laravel_app php artisan config:cache
+            docker exec laravel_app php artisan route:cache
