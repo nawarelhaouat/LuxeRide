@@ -16,6 +16,7 @@ jobs:
   backend-ci:
     name: Backend CI (Laravel)
     runs-on: ubuntu-latest
+
     services:
       mysql:
         image: mysql:8
@@ -40,11 +41,11 @@ jobs:
           php-version: 8.2
           extensions: pdo_mysql, mbstring
 
-      - name: Install dependencies
+      - name: Install backend dependencies
         working-directory: backend
         run: composer install --no-interaction --prefer-dist
 
-      - name: Prepare environment
+      - name: Prepare Laravel environment
         working-directory: backend
         run: |
           cp .env.example .env
@@ -53,7 +54,7 @@ jobs:
           sed -i 's/DB_USERNAME=.*/DB_USERNAME=root/' .env
           sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=root/' .env
 
-      - name: Generate app key
+      - name: Generate application key
         working-directory: backend
         run: php artisan key:generate
 
@@ -63,7 +64,7 @@ jobs:
             sleep 2
           done
 
-      - name: Run migrations
+      - name: Run database migrations
         working-directory: backend
         run: php artisan migrate --force
 
@@ -77,53 +78,54 @@ jobs:
   frontend-ci:
     name: Frontend CI (Angular)
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - name: Install dependencies
+      - name: Install frontend dependencies
         working-directory: frontend
         run: npm install
 
-      - name: Build Angular app
+      - name: Build Angular application
         working-directory: frontend
         run: npm run build
 
-      - name: Lint Angular code
+      - name: Lint frontend code
         working-directory: frontend
-        run: npm run lint || echo "No lint configured"
+        run: npm run lint || echo "Lint not configured"
 
   # =======================
   # DOCKER BUILD & PUSH
   # =======================
   docker-build-push:
-    name: Build & Push Docker Images
+    name: Build and Push Docker Images
     runs-on: ubuntu-latest
-    needs: [backend-ci, frontend-ci]  # Wait for CI jobs to pass
+    needs:
+      - backend-ci
+      - frontend-ci
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Login to Docker Hub
-      - name: Docker Hub Login
+      - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # Build & push frontend image
-      - name: Build & Push Frontend
+      - name: Build and push frontend image
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest ./frontend
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
 
-      # Build & push backend image
-      - name: Build & Push Backend
+      - name: Build and push backend image
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest ./backend
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest
@@ -134,23 +136,22 @@ jobs:
   deploy-ec2:
     name: Deploy to EC2
     runs-on: ubuntu-latest
-    needs: docker-build-push   # Deploy only if Docker images were successfully pushed
+    needs: docker-build-push
+
     steps:
-      - name: Deploy via SSH
+      - name: Deploy application via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd /home/ubuntu/project
-            # Pull latest images from Docker Hub
+            cd /home/ubuntu/project || exit 1
+
             docker compose pull
-            # Stop old containers and start new ones
             docker compose down
             docker compose up -d
-            # Run Laravel migrations
-            docker exec laravel_app php artisan migrate --force
-            # Optimize Laravel
-            docker exec laravel_app php artisan config:cache
-            docker exec laravel_app php artisan route:cache
+
+            docker compose exec -T backend php artisan migrate --force
+            docker compose exec -T backend php artisan config:cache
+            docker compose exec -T backend php artisan route:cache
