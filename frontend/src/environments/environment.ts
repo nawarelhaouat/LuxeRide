@@ -1,5 +1,5 @@
 export const environment = {
-  apiUrl: 'http://127.0.0.1:8000/api/admin' ,
+  apiUrl: 'http://51.21.191.202/api/admin' ,
   useMock: true,
     production: false,
 
