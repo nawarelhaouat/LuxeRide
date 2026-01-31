@@ -13,24 +13,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: 18
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
-    - name: Install dependencies
-      working-directory: frontend
-      run: npm install
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm install
 
-    - name: Build Angular app
-      working-directory: frontend
-      run: npm run build
+      - name: Build Angular app
+        working-directory: frontend
+        run: npm run build
 
-    - name: Run frontend tests
-      working-directory: frontend
-      run: npm test -- --watch=false --browsers=ChromeHeadless
+      - name: Run frontend tests
+        working-directory: frontend
+        run: npm run test -- --watch=false
 
   backend-ci:
     name: Backend CI (Laravel)
@@ -51,31 +51,41 @@ jobs:
           --health-retries=3
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: 8.2
-        extensions: mbstring, pdo_mysql
-        coverage: none
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: pdo_mysql, mbstring
 
-    - name: Install Composer dependencies
-      working-directory: backend
-      run: composer install --no-interaction --prefer-dist
+      - name: Install dependencies
+        working-directory: backend
+        run: composer install --no-interaction --prefer-dist
 
-    - name: Copy env
-      working-directory: backend
-      run: cp .env.example .env
+      - name: Prepare environment
+        working-directory: backend
+        run: |
+          cp .env.example .env
+          sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
+          sed -i 's/DB_DATABASE=.*/DB_DATABASE=test_db/' .env
+          sed -i 's/DB_USERNAME=.*/DB_USERNAME=root/' .env
+          sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=root/' .env
 
-    - name: Generate key
-      working-directory: backend
-      run: php artisan key:generate
+      - name: Generate app key
+        working-directory: backend
+        run: php artisan key:generate
 
-    - name: Run migrations
-      working-directory: backend
-      run: php artisan migrate --force
+      - name: Wait for MySQL
+        run: |
+          until mysqladmin ping -h 127.0.0.1 -u root -proot --silent; do
+            sleep 2
+          done
 
-    - name: Run backend tests
-      working-directory: backend
-      run: php artisan test
+      - name: Run migrations
+        working-directory: backend
+        run: php artisan migrate --force
+
+      - name: Run tests
+        working-directory: backend
+        run: php artisan test
