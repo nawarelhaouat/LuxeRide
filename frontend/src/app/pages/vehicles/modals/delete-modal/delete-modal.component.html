@@ -1,0 +1,18 @@
+<div class="delete-overlay" *ngIf="open">
+
+  <div class="delete-box">
+    <h2>Confirmer la suppression</h2>
+
+    <p>
+      Êtes-vous sûr de vouloir supprimer le véhicule 
+      <strong>{{ vehicle?.brand }} {{ vehicle?.model }}</strong> ?
+      Cette action est irréversible.
+    </p>
+
+    <div class="actions">
+      <button class="cancel" (click)="cancel.emit()">Annuler</button>
+      <button class="delete" (click)="confirm.emit()">Supprimer</button>
+    </div>
+  </div>
+</div>
+

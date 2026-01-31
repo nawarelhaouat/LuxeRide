@@ -1,0 +1,73 @@
+<section class="offers" revealOnScroll [once]="false">
+  <header class="offers__header">
+    <h2>Offres de location populaires</h2>
+    <p>
+      Découvrez nos véhicules les plus demandés, soigneusement sélectionnés pour
+      <br />
+      vous offrir confort, performance et fiabilité à des prix attractifs.
+    </p>
+  </header>
+
+  <div class="offers__carousel">
+    <button class="nav nav--left" type="button" (click)="prev()" >
+      ‹
+    </button>
+
+    <div class="cards">
+      @for (offer of visibleOffers; track offer.id) {
+        <article class="card">
+  <div class="car-img">
+    <img
+      [src]="offer.imageUrl"
+      [alt]="offer.brand + ' ' + offer.model"
+      (error)="onImgError($event)"
+    />
+  </div>
+
+  <div class="card__meta">
+    <!-- Marque et Prix sur la même ligne -->
+    <div class="brand-price-container">
+      <div class="brand-container">
+        <div class="label">Marque</div>
+        <div class="brand-value">{{ offer.brand }}</div>
+      </div>
+      
+      <div class="price-container">
+        <div class="price-line">
+          <span class="price-value">{{ formatMAD(offer.pricePerDay) }}</span>
+          <span class="price-unit">/jr</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modèle -->
+    <div class="model-container">
+      <div class="label">Modele</div>
+      <div class="model-value">{{ offer.model }}</div>
+    </div>
+
+    <!-- Bouton Réserver avec largeur réduite -->
+    <button class="btn-reserve" type="button" (click)="reserve(offer)">
+      Réserver
+    </button>
+  </div>
+</article>
+      }
+    </div>
+
+    <button
+      class="nav nav--right"
+      type="button"
+      (click)="next()"
+      
+    >
+      ›
+    </button>
+  </div>
+
+  <footer class="offers__footer">
+    <button class="btn-all" type="button" (click)="goAll()">
+      Voir tous les véhicules <span class="arrow">→</span>
+    </button>
+  </footer>
+</section>

@@ -1,0 +1,128 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  border: 1px solid #f0f0f0;
+}
+
+/* HEADER */
+thead {
+  background: #fafafa;
+}
+
+th {
+  padding: 18px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* ROWS */
+td {
+  padding: 20px;
+  font-size: 14px;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+small {
+  display: block;
+  margin-top: 4px;
+  color: #9ca3af;
+  font-size: 12px;
+}
+/* ===============================
+   BADGES STATUT
+================================ */
+
+.badge {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Confirmée */
+.confirmée {
+  background: #d7f5e3;
+  color: #1d7a46;
+}
+
+/* En attente */
+.en.attente {
+  background: #f7e4b8;
+  color: #9a6b1f;
+}
+
+/* Annulée */
+.annulée {
+  background: #feecec;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+/* ===============================
+   ACTIONS & ICÔNES
+================================ */
+
+
+.icon{  background: none;
+  border: none;
+  
+
+}
+.icon img {
+  width: 16px;
+  height: 16px;
+}
+.icon:hover {
+  opacity: 1;
+}
+
+.link {
+  color: #0f3d2e;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.statut {
+  padding-left: 50px;
+}
+.badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* VALIDE */
+.status-valide {
+  background: #e9fbf1;
+  color: #195042;
+  border: 1px solid #bbf7d0;
+}
+
+/* NON VALIDE */
+.status-non-valide {
+  background: #feecec;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+td .badge {
+  width: 100px;
+  text-align: center;
+}

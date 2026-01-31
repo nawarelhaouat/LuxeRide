@@ -1,0 +1,90 @@
+/* =========================
+   HERO LAYOUT
+========================= */
+.hero{
+  height: 90vh;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+margin-top: 80px;
+  /* ✅ Réglage rapide */
+  --filter-bottom: 20px; /* ↓ descendre = plus petit / ↑ monter = plus grand */
+}
+
+/* =========================
+   CARS (camera + animation)
+========================= */
+.cars-wrap{
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  perspective: 1400px;
+  perspective-origin: center 65%;
+
+  position: relative;
+  top: 30px;
+  z-index: 2;
+}
+
+.cars{
+  width: 100%;
+  height: auto;
+  display: block;
+
+  transform-origin: center bottom;
+
+  opacity: 0;
+  transform: translateY(120px) translateZ(-500px) scale(0.45) rotateX(8deg);
+
+  filter: blur(4px);
+  will-change: transform, opacity, filter;
+
+  animation: carFromBack 2000ms cubic-bezier(.12,.85,.25,1) forwards;
+}
+
+@keyframes carFromBack {
+  0%{
+    opacity: 0;
+    transform: translateY(120px) translateZ(-500px) scale(0.45) rotateX(8deg);
+    filter: blur(4px);
+  }
+  55%{
+    opacity: 1;
+    transform: translateY(20px) translateZ(60px) scale(1.08) rotateX(0deg);
+    filter: blur(0.6px);
+  }
+  100%{
+    opacity: 1;
+    transform: translateY(0) translateZ(0) scale(1) rotateX(0deg);
+    filter: blur(0);
+  }
+}
+
+/* =========================
+   FILTER POSITION (FIX)
+========================= */
+.filter-wrap{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: var(--filter-bottom);
+  z-index: 5;
+
+  /* ✅ largeur finale du filtre (comme tu veux) */
+  width: min(900px, 92%);
+
+  display: flex;
+  justify-content: center;
+}
+
+/* ✅ IMPORTANT : le composant doit prendre la largeur du wrapper */
+.filter-wrap app-vehicle-filter{
+  display: block;
+  width: 100%;
+}
+
+/* ✅ Responsive : remonte un peu si écran petit */
+@media (max-height: 760px){
+  .hero{ --filter-bottom: 10px; }
+}
