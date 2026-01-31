@@ -8,7 +8,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\DashboardController;
 
 use App\Http\Controllers\NotificationController;
-
+use App\Http\Controllers\BusinessInsightController;
 
 // Admin routes
 Route::prefix('admin')->group(function () {
@@ -17,6 +17,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/recover-password', [AdminAuthController::class, 'ForgotPassword']); // POST /api/admin/ForgotPassword
 
     Route::middleware('auth:admin')->group(function () {
+       Route::get('/business-insight',[BusinessInsightController::class, 'index']);
 
         // Voitures admin
         Route::prefix('voiture')->controller(VoitureController::class)->group(function () {
