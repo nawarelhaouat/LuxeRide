@@ -5,12 +5,12 @@ import { delay } from 'rxjs/operators';
 import { Offer } from '../models/offer.model';
 import { MOCK_OFFERS } from '../mocks/offers.mock';
 import { environment } from '../../environments/environment';
-
+import { map } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class OffersService {
 
   // ✅ propriété de classe
-  private apiUrl = 'http://localhost:8080/api/client';
+  private apiUrl = 'http://localhost:8000/api/client';
 
   constructor(private http: HttpClient) {}
 
@@ -22,8 +22,17 @@ export class OffersService {
     }
 
     // ✅ MODE BACKEND
-    return this.http.get<Offer[]>(
-      `${this.apiUrl}/voitures/most-rented`
+    return this.http
+    .get<any[]>(`${this.apiUrl}/voitures/most-rented`)
+    .pipe(
+      map(data =>
+        data.map(item => ({
+          id: item.id_voiture,
+          brand: item.marque,                 // ✅ mapping ici
+          model: '—',                         // backend ne le fournit pas
+          pricePerDay: Number(item.prix_par_jour),
+          imageUrl: item.image ?? 'assets/images/car.png'
+        }))
+      )
     );
-  }
-}
+}}

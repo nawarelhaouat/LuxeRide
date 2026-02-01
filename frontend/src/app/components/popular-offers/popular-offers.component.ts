@@ -41,6 +41,7 @@ export class PopularOffersComponent implements OnInit, OnDestroy {
 
     this.sub = this.offersApi.getPopularOffers().subscribe({
       next: (data) => {
+           console.log('OFFRES REÇUES DU BACKEND 👇', data); // ✅ ICI
         console.log('OFFERS REÇUES :', data); // ✅ log AU BON ENDROIT
         this.offers = data ?? [];
         this.index = 0;

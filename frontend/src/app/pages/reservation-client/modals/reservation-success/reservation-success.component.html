@@ -1,0 +1,25 @@
+<div class="rs-backdrop" (click)="close.emit()">
+  <div class="rs-card" (click)="$event.stopPropagation()">
+
+    <div class="rs-icon-wrap">
+      <div class="rs-icon">
+        <span>✓</span>
+      </div>
+    </div>
+
+    <h2 class="rs-title">Votre réservation a été confirmée</h2>
+    <p class="rs-subtitle">Merci pour votre confiance.</p>
+
+    <p class="rs-desc">
+      Un email de confirmation de paiement a été envoyé.
+    </p>
+
+    <div class="rs-note">
+      <span class="rs-note-i">i</span>
+      <span>Veuillez apporter votre CIN lors du retrait du véhicule.</span>
+    </div>
+
+    <button type="button" class="rs-btn" (click)="close.emit()">OK</button>
+
+  </div>
+</div>

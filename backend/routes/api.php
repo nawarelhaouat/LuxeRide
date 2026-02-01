@@ -9,7 +9,8 @@ use App\Http\Controllers\DashboardController;
 
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\BusinessInsightController;
-
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\LocationController;
 // Admin routes
 Route::prefix('admin')->group(function () {
 
@@ -53,4 +54,11 @@ Route::prefix('client/voitures')->controller(VoitureController::class)->group(fu
     Route::get('/', 'getAllVehicles');          // GET /api/client/voitures
     Route::get('/search', 'searchVehicles');    // GET /api/client/voitures/search
     Route::get('/most-rented', 'MostRentedCars'); // GET /api/client/voitures/most-rented
+    Route::post('/locations', [LocationController::class, 'store']);
+Route::get('/locations', [LocationController::class, 'index']);
+Route::get('/locations/{id}', [LocationController::class, 'show']);
 });
+
+
+Route::post('/client/contactus', [ContactController::class, 'send']);
+

@@ -1,1 +1,108 @@
-<p>reservation-client works!</p>
+<app-navbar></app-navbar>
+
+<div class="nav-spacer"></div>
+
+<div class="reservation-page">
+
+  <!-- ===== RÉSUMÉ EN HAUT ===== -->
+  <div class="reservation-header">
+
+    <!-- Image voiture -->
+    <div class="vehicle-image">
+      <img
+  [src]="vehicle.imageUrl"
+  [alt]="vehicle.brand + ' ' + vehicle.model"
+>
+
+      <div class="arrows">‹ ›</div>
+    </div>
+    
+
+
+    <!-- Résumé -->
+    <div class="summary-card">
+      <h2>Résumé de la réservation</h2>
+
+      <span>{{ vehicle.brand }}</span>
+
+
+
+      <hr>
+
+      <div class="row">
+        <span>Prix par jour</span>
+        <strong>{{ pricePerDay }} MAD</strong>
+      </div>
+
+      <div class="row">
+        <span>Nombre de jours</span>
+        <strong>{{ numberOfDays }}</strong>
+      </div>
+
+      <hr>
+
+      <h3>Total <strong>{{ totalPrice }} MAD</strong></h3>
+    </div>
+
+  </div>
+
+  <!-- ===== FORMULAIRE ===== -->
+  <div class="form-card">
+
+    <h2>Vos informations</h2>
+
+    <div class="grid">
+      <input placeholder="Prénom">
+      <input placeholder="Nom">
+      <input placeholder="CIN">
+      <input placeholder="Email">
+      <input placeholder="Téléphone">
+    </div>
+
+    <h2>Dates de location</h2>
+
+    <div class="grid">
+      <input type="date" [(ngModel)]="startDate" (change)="calculatePrice()">
+      <input type="date" [(ngModel)]="endDate" (change)="calculatePrice()">
+    </div>
+
+    <h2>Mode de paiement</h2>
+
+    <div class="payment-boxes">
+      <div
+        class="payment-box"
+        [class.active]="paymentMethod === 'ONLINE'"
+        (click)="selectPayment('ONLINE')"
+      >
+        <h3>Payer en ligne</h3>
+        <p>Paiement sécurisé (indisponible)</p>
+      </div>
+
+      <div
+        class="payment-box"
+        [class.active]="paymentMethod === 'AGENCY'"
+        (click)="selectPayment('AGENCY')"
+      >
+        <h3>Payer à l'agence</h3>
+        <p>Paiement lors du retrait</p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-outline" (click)="goBack()">Retour</button>
+      <button class="btn-primary" (click)="reserve()">Réserver</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODALS -->
+<app-payment-unavailable
+  *ngIf="showPaymentUnavailable"
+  (close)="showPaymentUnavailable = false">
+</app-payment-unavailable>
+
+<app-reservation-success
+  *ngIf="showReservationSuccess"
+  (close)="showReservationSuccess = false">
+</app-reservation-success>
