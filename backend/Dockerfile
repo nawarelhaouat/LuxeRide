@@ -1,17 +1,22 @@
 FROM php:8.2-cli
 
 RUN apt-get update && apt-get install -y \
-    zip unzip git libpq-dev libpng-dev libonig-dev libxml2-dev \
+    zip unzip git netcat-openbsd \
+    libpng-dev libonig-dev libxml2-dev \
     && docker-php-ext-install pdo pdo_mysql
 
 WORKDIR /var/www/html
 
 COPY . .
 
-# Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-RUN composer install
+RUN composer install --no-interaction --prefer-dist
 
-EXPOSE 8000
+# Entrypoint
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+EXPOSE 80
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=80"]
