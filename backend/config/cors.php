@@ -8,7 +8,7 @@ return [
 
     'allowed_origins' => [
         'http://localhost:4200',
-        'http://13.60.254.155',
+        'http://16.171.57.45',
     ],
 
     'allowed_origins_patterns' => [],

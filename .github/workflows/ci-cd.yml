@@ -147,10 +147,10 @@ jobs:
           script: |
             cd /home/ubuntu/project || exit 1
 
-            docker compose pull
-            docker compose down
-            docker compose up -d
+            docker-compose pull
+            docker-compose down
+            docker-compose up -d
 
-            docker compose exec -T backend php artisan migrate --force
-            docker compose exec -T backend php artisan config:cache
-            docker compose exec -T backend php artisan route:cache
+            docker-compose exec -T backend php artisan migrate --force
+            docker-compose exec -T backend php artisan config:cache
+            docker-compose exec -T backend php artisan route:cache
