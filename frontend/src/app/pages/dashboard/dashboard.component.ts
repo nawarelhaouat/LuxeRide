@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { DashboardService } from '../../services/dashboard.service';
 import { DashboardResponse, DashboardStats } from '../../models/dashboard.model';
+import { BusinessInsightService } from '../../services/business-insight.service';
 
 import {
   Chart,
@@ -36,6 +37,10 @@ export class DashboardComponent implements OnInit {
 
   stats!: DashboardStats;
 
+  // 🔹 IA
+  aiComment: string | null = null;
+  loadingAi = true;
+
   @ViewChild('reservationsCanvas')
   reservationsCanvas!: ElementRef<HTMLCanvasElement>;
 
@@ -51,6 +56,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private dashboardService: DashboardService,
+    private insightService: BusinessInsightService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -62,7 +68,6 @@ export class DashboardComponent implements OnInit {
         // force le rendu du *ngIf + canvas
         this.cdr.detectChanges();
 
-        // attendre que le DOM soit stable
         requestAnimationFrame(() => {
           this.createReservationsLineChart(
             data.reservationsLine.labels,
@@ -81,6 +86,18 @@ export class DashboardComponent implements OnInit {
         });
       },
       error: (err) => console.error('Erreur chargement dashboard', err)
+    });
+
+    // 🔹 IA BUSINESS INSIGHT (OLLAMA LOCAL)
+    this.insightService.getInsight().subscribe({
+      next: (res) => {
+        this.aiComment = res.ai_comment;
+        this.loadingAi = false;
+      },
+      error: () => {
+        this.aiComment = '⚠️ Analyse IA indisponible.';
+        this.loadingAi = false;
+      }
     });
   }
 
@@ -189,18 +206,6 @@ export class DashboardComponent implements OnInit {
               boxHeight: 12,
             },
             onClick: () => {}
-          },
-          tooltip: {
-            enabled: true,
-            backgroundColor: '#ffffff',
-            titleColor: '#195042',
-            bodyColor: '#195042',
-            borderColor: '#A3864A',
-            borderWidth: 1,
-            padding: 12,
-            callbacks: {
-              label: (context) => `${context.label}: ${context.parsed}%`
-            }
           }
         }
       }
@@ -230,21 +235,7 @@ export class DashboardComponent implements OnInit {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            backgroundColor: '#ffffff',
-            titleColor: '#195042',
-            bodyColor: '#195042',
-            borderColor: '#A3864A',
-            borderWidth: 1,
-            padding: 12,
-            callbacks: {
-              title: (items) => items[0].label,
-              label: (item) => `revenue : ${item.raw}`
-            }
-          }
-        },
+        plugins: { legend: { display: false } },
         scales: {
           x: {
             grid: { display: false },

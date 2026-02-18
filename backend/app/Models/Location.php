@@ -47,7 +47,6 @@ class Location extends Model
         'cin_client',
         'valide',
         'id_voiture',
-        'id_admin',
     ];
 
     /**
@@ -59,8 +58,5 @@ class Location extends Model
         return $this->belongsTo(Voiture::class, 'id_voiture', 'id_voiture');
     }
 
-    public function admin()
-    {
-        return $this->belongsTo(Admin::class, 'id_admin', 'id_admin');
-    }
+
 }

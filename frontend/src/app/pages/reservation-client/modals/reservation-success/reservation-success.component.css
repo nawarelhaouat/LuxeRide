@@ -1,0 +1,142 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: block;
+}
+
+/* fond sombre + blur */
+.rs-backdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 18px;
+}
+
+/* carte */
+.rs-card{
+  width: 420px;
+  max-width: 92vw;
+  background: #fff;
+  border-radius: 22px;
+  padding: 28px 26px 20px;
+  text-align: center;
+  box-shadow: 0 30px 70px rgba(0,0,0,.25);
+  position: relative;
+
+  animation: rsPop .18s ease-out;
+}
+
+/* icône en haut (cercle vert) */
+.rs-icon-wrap{
+  display: flex;
+  justify-content: center;
+  margin-top: -58px;
+  margin-bottom: 10px;
+}
+
+.rs-icon{
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: #e8fbf0;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 12px 28px rgba(46, 125, 50, 0.25);
+  border: 6px solid #ffffff;
+}
+
+.rs-icon span{
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #2e7d32;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+/* textes */
+.rs-title{
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 8px 0 4px;
+}
+
+.rs-subtitle{
+  font-size: 13px;
+  color: #64748b;
+  margin: 0 0 12px;
+}
+
+.rs-desc{
+  font-size: 13px;
+  color: #334155;
+  margin: 0 0 14px;
+}
+
+/* note en bas */
+.rs-note{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  text-align: left;
+  font-size: 12px;
+  color: #334155;
+  margin: 0 0 16px;
+}
+
+.rs-note-i{
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #0f172a;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  flex: 0 0 auto;
+}
+
+/* bouton */
+.rs-btn{
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: #8b0000;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.rs-btn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(139, 0, 0, 0.25);
+}
+
+.rs-btn:active{
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* animation */
+@keyframes rsPop{
+  from { transform: scale(.96); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}

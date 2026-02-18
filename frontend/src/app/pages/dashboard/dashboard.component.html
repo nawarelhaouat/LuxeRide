@@ -128,3 +128,20 @@
   </mat-card>
 </div>
 
+<div class="stat-card pad" > 
+  <div class="chart-header">
+      <h3>Analyse IA</h3>
+    </div>
+    <div *ngIf="loadingAi" class="ai-loading">
+    ⏳ Analyse en cours...
+  </div>
+
+ <div *ngIf="!loadingAi" class="ai-insight">
+  <div class="ai-insight-title">
+    <span class="ai-badge">AI</span>
+    Business Insight
+  </div>
+
+  <p>{{ aiComment }}</p>
+</div>
+
