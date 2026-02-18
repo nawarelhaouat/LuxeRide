@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class BusinessInsightService {
 
-  private apiUrl = 'http://localhost:8000/api/admin/business-insight';
+  private apiUrl = 'http://16.171.57.45/api/admin/business-insight';
 
   constructor(private http: HttpClient) {}
 

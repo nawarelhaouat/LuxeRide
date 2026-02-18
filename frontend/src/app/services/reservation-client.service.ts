@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ReservationClientService {
 
   // 🔴 API Laravel
-  private readonly API_URL = 'http://localhost:8000/api/client/voitures/locations';
+  private readonly API_URL = 'http://16.171.57.45/api/client/voitures/locations';
 
   constructor(private http: HttpClient) {}
 

@@ -32,7 +32,7 @@ describe('ReservationService', () => {
       expect(res).toBeDefined();
     });
 
-    const req = httpMock.expectOne('http://localhost:8000/api/admin/Reservation');
+    const req = httpMock.expectOne('http://16.171.57.45/api/admin/Reservation');
     expect(req.request.method).toBe('GET');
 
     req.flush({ 0: [] });
@@ -42,7 +42,7 @@ describe('ReservationService', () => {
     service.updateStatus(1, 'non valide').subscribe();
 
     const req = httpMock.expectOne(
-      'http://localhost:8000/api/admin/Reservation/1'
+      'http://16.171.57.45/api/admin/Reservation/1'
     );
     expect(req.request.method).toBe('PATCH');
     expect(req.request.body).toEqual({ statut: 'non valide' });

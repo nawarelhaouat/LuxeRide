@@ -6,7 +6,7 @@ import { Vehicle } from '../models/vehicle';
 @Injectable({ providedIn: 'root' })
 export class VehicleService {
 
-  private api = 'http://localhost:8000/api/admin/voiture'; // <<< CORRECTION
+  private api = 'http://16.171.57.45/api/admin/voiture'; // <<< CORRECTION
 
   constructor(private http: HttpClient) {}
 

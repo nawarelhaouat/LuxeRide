@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 export class OffersService {
 
   // ✅ propriété de classe
-  private apiUrl = 'http://localhost:8000/api/client';
+  private apiUrl = 'http://16.171.57.45/api/client';
 
   constructor(private http: HttpClient) {}
 

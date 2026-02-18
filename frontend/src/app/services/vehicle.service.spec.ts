@@ -35,7 +35,7 @@ describe('VehicleService', () => {
       expect(vehicles[0].plate).toBe('AB-123-CD');
     });
 
-    const req = httpMock.expectOne('http://localhost:8000/api/voiture');
+    const req = httpMock.expectOne('http://16.171.57.45/api/voiture');
     expect(req.request.method).toBe('GET');
 
     req.flush(mockBackend);

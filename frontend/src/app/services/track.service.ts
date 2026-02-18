@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TrackService {
-  private api = 'http://localhost:8080/api/client';
+  private api = 'http://16.171.57.45/api/client';
 
   constructor(private http: HttpClient) {}
 
