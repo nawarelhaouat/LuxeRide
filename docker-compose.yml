@@ -31,12 +31,7 @@ services:
       MYSQL_PASSWORD: laravel_pass
     volumes:
       - mysql_data:/var/lib/mysql
-    ports:
-      - "3306:3306"   # OK si besoin d'accès local
-    networks:
-      - app_net
 
 volumes:
-
   mysql_data:
 
