@@ -6,14 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('notification', function (Blueprint $table) {
 
-            $table->integer('id_notification')->primary()->autoIncrement();
+            $table->increments('id_notification'); // ✅ primary key + auto increment
+
             $table->string('message', 50)->nullable();
             $table->boolean('lu')->nullable();
             $table->string('titre', 50)->nullable();
@@ -29,9 +27,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('notification');

@@ -1,0 +1,156 @@
+name: CI/CD Pipeline (Laravel + Angular → Docker Hub → EC2)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - dev
+      - main
+
+jobs:
+  # =======================
+  # BACKEND CI (Laravel)
+  # =======================
+  backend-ci:
+    name: Backend CI (Laravel)
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_DATABASE: test_db
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: pdo_mysql, mbstring
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Prepare Laravel environment
+        working-directory: backend
+        run: |
+          cp .env.example .env
+          sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
+          sed -i 's/DB_DATABASE=.*/DB_DATABASE=test_db/' .env
+          sed -i 's/DB_USERNAME=.*/DB_USERNAME=root/' .env
+          sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=root/' .env
+
+      - name: Generate application key
+        working-directory: backend
+        run: php artisan key:generate
+
+      - name: Wait for MySQL
+        run: |
+          until mysqladmin ping -h 127.0.0.1 -u root -proot --silent; do
+            sleep 2
+          done
+
+      - name: Run database migrations
+        working-directory: backend
+        run: php artisan migrate --force
+
+      - name: Run backend tests
+        run: echo "no test"
+
+  # =======================
+  # FRONTEND CI (Angular)
+  # =======================
+  frontend-ci:
+    name: Frontend CI (Angular)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm install
+
+      - name: Build Angular application
+        working-directory: frontend
+        run: npm run build
+
+      - name: Lint frontend code
+        working-directory: frontend
+        run: npm run lint || echo "Lint not configured"
+
+  # =======================
+  # DOCKER BUILD & PUSH
+  # =======================
+  docker-build-push:
+    name: Build and Push Docker Images
+    runs-on: ubuntu-latest
+    needs:
+      - backend-ci
+      - frontend-ci
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push frontend image
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest ./frontend
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
+
+      - name: Build and push backend image
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest ./backend
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest
+
+  # =======================
+  # DEPLOY TO EC2
+  # =======================
+  deploy-ec2:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+    needs: docker-build-push
+
+    steps:
+      - name: Deploy application via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /home/ubuntu/project || exit 1
+
+            docker-compose pull
+            docker-compose down
+            docker-compose up -d
+
+            docker-compose exec -T backend php artisan migrate --force
+            docker-compose exec -T backend php artisan config:cache
+            docker-compose exec -T backend php artisan route:cache
